@@ -6,6 +6,6 @@ public class Main {
     public static void main(String[] args) {
         ControladorPartida controller = new ControladorPartida();
         controller.seleccionPersonaje();
-
+        controller.getPersonajes();
     }
 }

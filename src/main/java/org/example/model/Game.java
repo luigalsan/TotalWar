@@ -4,6 +4,7 @@ import org.example.model.ejercito.Bestia;
 import org.example.model.ejercito.Heroe;
 import org.example.model.ejercito.raza.*;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,6 +44,27 @@ public class Game {
         }
     }
 
+
+    public <T extends Personaje> List<T> ordenarListaPersonajes(List<T> personajes, int opcion) {
+        List<T> listaOrdenada = new LinkedList<>(personajes);
+
+        switch (opcion) {
+            case 1 -> Collections.sort(listaOrdenada, (h1, h2) -> h1.getNombre().compareTo(h2.getNombre()));
+            case 2 -> Collections.sort(listaOrdenada, (h1, h2) -> h2.getVida() - h1.getVida());
+            case 3 -> Collections.sort(listaOrdenada, (h1, h2) -> h2.getArmadura() - h1.getArmadura());
+        }
+
+        return listaOrdenada;
+    }
+
+
+
+
+
+    public List<Bestia> ordenarListaBestia(List<Bestia> bestia){
+        return null;
+    }
+
     public List<Heroe> getEjercitoBien() {
         return ejercitoBien;
     }
@@ -58,6 +80,8 @@ public class Game {
     public void setEjercitoMal(List<Bestia> ejercitoMal) {
         this.ejercitoMal = ejercitoMal;
     }
+
+
 
 //    public void incharseAOstias(){
 //        Bestia miBestia = new Bestia("Paco",100,20,"tusMuertos");

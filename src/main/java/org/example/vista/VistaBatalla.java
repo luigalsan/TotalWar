@@ -9,7 +9,7 @@ public class VistaBatalla {
     public void mensajeMenu(){
         System.out.println("Elige una opción: " +
                 "\n1. Agregar personajes" +
-                "\n2. Comenzar partida" +
+                "\n2. Jugar" +
                 "\n3. Salir");
     }
 
@@ -45,7 +45,16 @@ public class VistaBatalla {
         System.out.println("Introduce puntos de armadura: ");
     }
 
-    // MENSAJES PARA LA OPCIÓN 2. TRANSCURSO DE PARTIDA
+    // MENSAJES PARA LA OPCIÓN 2. JUGAR
+
+    // 2.1. PREPARAR CAMPO DE BATALLA
+
+    public void mensajeJugar(){
+
+        System.out.println("Elige una opción: " +
+                "\n1. Prepara el campo de batalla" +
+                "\n2. Comienza la batalla!!");
+    }
 
 
     // MENSAJES PARA LA OPCIÓN 3. FIN DE PARTIDA

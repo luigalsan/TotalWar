@@ -11,6 +11,8 @@ public class ControladorPartida {
     VistaBatalla vistaBatalla = new VistaBatalla();
     Game game = new Game();
 
+    String continuar = null;
+
     public void menuSeleccion(){
             vistaBatalla.mensajeMenu();
             Scanner sc = new Scanner(System.in);
@@ -24,30 +26,29 @@ public class ControladorPartida {
 
                 case 3:
                     System.out.println("Saliendo del menú");break;
-
             }
-
     }
     // Selección personaje
     public void seleccionPersonaje() {
 
-        // Atributos para nuestros Personajes
-        int faccion = 0;
-        int vida = 0;
-        int armadura = 0;
-        String raza = null;
-
-        // Variables bandera para controlar el flujo
-        String continuar = null;
-        boolean faccionValidada = false;
-        boolean heroeValidado = false;
-        boolean bestiaValidado = false;
-        boolean vidaValidada = false;
-        boolean armaduraValidada = false;
-        boolean otroPersonajeValidado = false;
-        
-        
         do {
+
+            // Atributos para nuestros Personajes
+            int faccion = 0;
+            int vida = 0;
+            int armadura = 0;
+            String raza = null;
+
+            // Variables bandera para controlar el flujo
+
+            boolean faccionValidada = false;
+            boolean heroeValidado = false;
+            boolean bestiaValidado = false;
+            boolean vidaValidada = false;
+            boolean armaduraValidada = false;
+            boolean otroPersonajeValidado = false;
+
+
             Scanner sc = new Scanner(System.in);
             vistaBatalla.mensajeIntroduceNombre(); // Introduce nombre
             String nombre = sc.nextLine();
@@ -158,6 +159,18 @@ public class ControladorPartida {
             }while(!otroPersonajeValidado);
 
         } while (continuar.equalsIgnoreCase("Si"));
+
+    }
+
+
+    public void getPersonajes(){
+        System.out.println("Tu ejercito de Héroes está conformado por: ");
+        game.getEjercitoBien().forEach(heroe -> {
+            System.out.println(heroe.toString());
+        });
     }
     // Comienzo partida
+
+
+
 }
