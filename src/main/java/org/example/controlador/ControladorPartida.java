@@ -31,54 +31,101 @@ public class ControladorPartida {
     // Selección personaje
     public void seleccionPersonaje() {
 
-        //Mediante el uso de Scanner recojo toda la información para la creación de mi personaje
+        // Atributos para nuestros Personajes
+        int faccion = 0;
+        int vida = 0;
+        int armadura = 0;
+        String raza = null;
 
-        String continuar;
+        // Variables bandera para controlar el flujo
+        String continuar = null;
+        boolean faccionValidada = false;
+        boolean heroeValidado = false;
+        boolean bestiaValidado = false;
+        boolean vidaValidada = false;
+        boolean armaduraValidada = false;
+        boolean otroPersonajeValidado = false;
+        
+        
         do {
             Scanner sc = new Scanner(System.in);
             vistaBatalla.mensajeIntroduceNombre(); // Introduce nombre
             String nombre = sc.nextLine();
-            int faccion;
-            String raza = null;
-
-            boolean faccionValidada = false;
+            
             do {
+                try{
                 vistaBatalla.mensajeIntroduceFaccion();
                 faccion = Integer.parseInt(sc.nextLine());
 
-
                 switch (faccion) {
                     case 1 -> {
-                        vistaBatalla.mensajeIntroduceRazaHeroe();
-                        int numeroHeroe = Integer.parseInt(sc.nextLine());
-                        switch (numeroHeroe) {
-                            case 1 -> raza = "Elfos";
-                            case 2 -> raza = "Enanos";
-                            case 3 -> raza = "Humanos";
-                        }
-                        faccionValidada = true;
+                        do{
+                            try{
+                                vistaBatalla.mensajeIntroduceRazaHeroe();
+                                int numeroHeroe = Integer.parseInt(sc.nextLine());
+                                switch (numeroHeroe) {
+                                    case 1 -> {
+                                        raza = "Elfos";
+                                        heroeValidado = true;
+                                    }
+                                    case 2 -> {
+                                        raza = "Enanos";
+                                        heroeValidado = true;
+                                    }
+                                    case 3 -> {
+                                        raza = "Humanos";
+                                        heroeValidado = true;
+                                    }
+                                    default -> System.out.println("Introduce una raza correcta");
+                                }
+                            }catch(NumberFormatException e){
+                                System.out.println("Introduce un valor válido");
+                            }
+                            faccionValidada = true;
+                        }while(!heroeValidado);
+
                     }
                     case 2 -> {
                         vistaBatalla.mensajeIntroduceRazaBestia();
                         int numeroBestia = Integer.parseInt(sc.nextLine());
                         raza = switch (numeroBestia) {
-                            case 1 -> "Orcos";
-                            case 2 -> "Trasgos";
+                            case 1 -> "Orco";
+                            case 2 -> "Trasgo";
                             case 3 -> "Uruk";
                             default -> raza;
                         };
                         faccionValidada = true;
                     }
                     default -> System.out.println("Introduce la facción correcta");
-
+                }
+                }catch(NumberFormatException e){
+                    System.out.println("Introduce un valor válido");
                 }
             }while(!faccionValidada);
 
-            vistaBatalla.mensajeVida();
-            int vida = Integer.parseInt(sc.nextLine());
+            do {
+                try {
 
-            vistaBatalla.mensajeArmadura();
-            int armadura = Integer.parseInt(sc.nextLine());
+                    vistaBatalla.mensajeVida();
+                    vida = Integer.parseInt(sc.nextLine());
+                    vidaValidada = true;
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Introduce un valor válido");
+                }
+            }while(!vidaValidada);
+
+
+            do{
+                try{
+                    vistaBatalla.mensajeArmadura();
+                    armadura = Integer.parseInt(sc.nextLine());
+                    armaduraValidada = true;
+                }catch(NumberFormatException n){
+                    System.out.println("Introduce un valor válido");
+                }
+            }while(!armaduraValidada);
+
 
             //Paso estos atributos para la creación de mi personaje y los agrego al Set Bestia o Heroe
 
@@ -98,12 +145,19 @@ public class ControladorPartida {
                 });
             }
 
-            System.out.println("¿Crear otro personaje?: Si/No");
-            continuar = sc.nextLine();
+
+            do {
+                System.out.println("¿Crear otro personaje?: Si/No");
+                continuar = sc.nextLine();
+                if (continuar.equals("Si") || continuar.equals("No")) {
+                    otroPersonajeValidado = true;
+                }else{
+                    System.out.println("Introduce un valor valido para continuar");
+                }
+
+            }while(!otroPersonajeValidado);
 
         } while (continuar.equalsIgnoreCase("Si"));
-
     }
-
     // Comienzo partida
 }

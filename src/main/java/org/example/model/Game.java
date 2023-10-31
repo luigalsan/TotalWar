@@ -4,13 +4,13 @@ import org.example.model.ejercito.Bestia;
 import org.example.model.ejercito.Heroe;
 import org.example.model.ejercito.raza.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
     private int turno;
-    private Set<Heroe> ejercitoBien = new HashSet<>();
-    private Set<Bestia> ejercitoMal = new HashSet<>();
+    private List<Heroe> ejercitoBien = new LinkedList<>();
+    private List<Bestia> ejercitoMal = new LinkedList<>();
 
     // Creación de personajes
 
@@ -43,19 +43,19 @@ public class Game {
         }
     }
 
-    public Set<Heroe> getEjercitoBien() {
+    public List<Heroe> getEjercitoBien() {
         return ejercitoBien;
     }
 
-    public void setEjercitoBien(Set<Heroe> ejercitoBien) {
+    public void setEjercitoBien(List<Heroe> ejercitoBien) {
         this.ejercitoBien = ejercitoBien;
     }
 
-    public Set<Bestia> getEjercitoMal() {
+    public List<Bestia> getEjercitoMal() {
         return ejercitoMal;
     }
 
-    public void setEjercitoMal(Set<Bestia> ejercitoMal) {
+    public void setEjercitoMal(List<Bestia> ejercitoMal) {
         this.ejercitoMal = ejercitoMal;
     }
 
