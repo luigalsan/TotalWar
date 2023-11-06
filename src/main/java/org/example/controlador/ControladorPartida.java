@@ -26,7 +26,7 @@ public class ControladorPartida {
                             seleccionPersonaje();
                             opcionValidada = true;
                         }
-                        case 2 -> System.out.println("jugar");
+                        case 2 -> preparacionBatalla();
                         case 3 -> {
                             System.out.println("Salir");
                         }
@@ -204,6 +204,13 @@ public class ControladorPartida {
         }catch(NumberFormatException e){
             System.out.println("El formato introducido no es válido");
         }
+
+    }
+
+
+    // COMENZANDO LA BATALLA
+
+    public void controladorBatalla(){
 
     }
 }

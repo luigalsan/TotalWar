@@ -59,13 +59,7 @@ public class Game {
         }
     }
 
-    public void batalla(){
-        // Obtener las dos listas donde van a ir cambiando los personajes dentro de este método
-        List<Personaje> ejercitoMal = new LinkedList<>();
-        List<Personaje> ejercitoBien = new LinkedList<>();
-
-        // Iteradores para controlar el borrado de elementos
-
+    public void batalla(List<Personaje> ejercitoBien, List<Personaje> ejercitoMal, String mensajeTurno){
 
         // Creando heroes para prueba
         ejercitoBien.add(new Elfo("Légolas", 10, 10));
@@ -80,6 +74,7 @@ public class Game {
 
         int turno = 0;
         while(!ejercitoMal.isEmpty() && !ejercitoBien.isEmpty()){
+            System.out.println(mensajeTurno);
             int sizeListaMenor = Math.min(ejercitoBien.size(), ejercitoMal.size());
 
             int valorDadoHeroe = 0;
@@ -100,6 +95,8 @@ public class Game {
                 if(bestia instanceof Orco){
                     valorDadoBestia = bestia.tirarDado();
                 }
+
+                System.out.println();
 
                 // Comprobar armadura de cada personaje y en función de la puntuación de cada uno,
                 // quitar vida o no
