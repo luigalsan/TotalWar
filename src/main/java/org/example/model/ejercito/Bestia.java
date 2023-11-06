@@ -9,8 +9,8 @@ public class Bestia extends Personaje implements Dado {
     private Random dado = new Random();
 
 
-    public Bestia(String nombre, int ataque, int armadura) {
-        super(nombre, ataque, armadura);
+    public Bestia(String nombre, int vida, int armadura) {
+        super(nombre, vida, armadura);
 
     }
 

@@ -45,7 +45,7 @@ public abstract class Personaje {
     public String toString() {
         return "Personaje{" +
                 "nombre='" + nombre + '\'' +
-                ", ataque=" + vida +
+                ", vida=" + vida +
                 ", armadura=" + armadura +
                 '}';
     }

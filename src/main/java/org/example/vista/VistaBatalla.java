@@ -49,7 +49,7 @@ public class VistaBatalla {
 
     // 2.1. PREPARAR CAMPO DE BATALLA
 
-    public void mensajeJugar(){
+    public void preparacionBatalla(){
 
         System.out.println("Elige una opción: " +
                 "\n1. Prepara el campo de batalla" +
