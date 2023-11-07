@@ -59,7 +59,10 @@ public class Game {
         }
     }
 
-    public void batalla(List<Personaje> ejercitoBien, List<Personaje> ejercitoMal, String mensajeTurno){
+    public void batalla(){
+        List<Personaje> ejercitoBien = new ArrayList<>();
+        List<Personaje> ejercitoMal = new ArrayList<>();
+
 
         // Creando heroes para prueba
         ejercitoBien.add(new Elfo("Légolas", 10, 10));
@@ -72,9 +75,9 @@ public class Game {
 
 
 
-        int turno = 0;
+        int turno = 1;
         while(!ejercitoMal.isEmpty() && !ejercitoBien.isEmpty()){
-            System.out.println(mensajeTurno);
+
             int sizeListaMenor = Math.min(ejercitoBien.size(), ejercitoMal.size());
 
             int valorDadoHeroe = 0;
@@ -82,12 +85,14 @@ public class Game {
 
             Iterator<Personaje> iteradorEjercitoMal = ejercitoMal.iterator();
             Iterator<Personaje> iteradorEjercitoBien = ejercitoBien.iterator();
-
+            System.out.println("Turno: " + turno);
             //Cada turno habrá que comprobar qué lista es la menor
             for (int i = 0; i < sizeListaMenor; i++){
                 Heroe heroe = (Heroe) ejercitoBien.get(i);
                 Bestia bestia = (Bestia) ejercitoMal.get(i);
 
+                System.out.println("Lucha entre " + heroe.getNombre() + " (Vida= " + heroe.getVida()
+                        + ") (Armadura= " + heroe.getArmadura() + ")");
                 // Obtener el valor de los dados
                 if(heroe instanceof Elfo){
                     valorDadoHeroe = heroe.tirarDado();
@@ -96,25 +101,32 @@ public class Game {
                     valorDadoBestia = bestia.tirarDado();
                 }
 
-                System.out.println();
+
 
                 // Comprobar armadura de cada personaje y en función de la puntuación de cada uno,
                 // quitar vida o no
                 if(valorDadoHeroe > bestia.getArmadura()){
 
-                    bestia.setVida(bestia.getVida() - (valorDadoHeroe - bestia.getArmadura()));
+                    int danoHeroe = valorDadoHeroe - bestia.getArmadura();
+                    bestia.setVida(bestia.getVida() - danoHeroe);
+                    System.out.println(heroe.getNombre() + " saca " + valorDadoHeroe + " y le quita "
+                            + danoHeroe + " de vida a " + bestia.getNombre());
                 }
                 if(valorDadoBestia > heroe.getArmadura()){
-                    heroe.setVida(heroe.getVida() - (valorDadoBestia - heroe.getArmadura()));
+                    int danoBestia = valorDadoBestia - heroe.getArmadura();
+                    heroe.setVida(heroe.getVida() - danoBestia);
+                    System.out.println(bestia.getNombre() + " saca " + valorDadoBestia + " y le quita "
+                    + danoBestia + " de vida " + heroe.getNombre());
                 }
-                turno ++;
+
+
 
             }
 
             while(iteradorEjercitoMal.hasNext()) {
                 Personaje personaje = iteradorEjercitoMal.next();
                 if(personaje.getVida() <= 0){
-                    System.out.println("Ha muerto " + personaje.getNombre());
+                    System.out.println("¡Muere " + personaje.getNombre() + "!");
                     iteradorEjercitoMal.remove();
                 }
             }
@@ -122,7 +134,7 @@ public class Game {
             while(iteradorEjercitoBien.hasNext()) {
                 Personaje personaje = iteradorEjercitoBien.next();
                 if(personaje.getVida() <= 0){
-                    System.out.println("Ha muerto " + personaje.getNombre());
+                    System.out.println("¡Muere " + personaje.getNombre() + "!");
                     iteradorEjercitoBien.remove();
                 }
             }
@@ -135,6 +147,8 @@ public class Game {
                 System.out.println("¡¡ VICTORIA DE LAS BESTIAS !! ");
 
             }
+
+            turno ++;
         }
     }
 
