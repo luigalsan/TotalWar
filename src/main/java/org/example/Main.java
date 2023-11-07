@@ -9,7 +9,9 @@ public class Main {
 
         Game game = new Game();
 
-        game.batalla();
+        ControladorPartida miPartida = new ControladorPartida();
+        miPartida.seleccionPersonaje();
+
 
 
     }

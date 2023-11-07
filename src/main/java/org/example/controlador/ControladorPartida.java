@@ -8,7 +8,8 @@ import java.util.Scanner;
 
 public class ControladorPartida {
 
-    VistaBatalla vistaBatalla = new VistaBatalla();
+
+    Scanner sc = new Scanner(System.in);
     Game game = new Game();
     String continuar = null;
 
@@ -16,10 +17,8 @@ public class ControladorPartida {
     public void menuSeleccion(){
         boolean opcionValidada = false;
         do{
-            vistaBatalla.mensajeMenu();
-            Scanner sc = new Scanner(System.in);
             try{
-                    int opcion = Integer.parseInt(sc.nextLine());
+                    int opcion = VistaBatalla.mensajeMenu();
                     switch (opcion) {
 
                         case 1 -> {
@@ -58,25 +57,23 @@ public class ControladorPartida {
             boolean armaduraValidada = false;
             boolean otroPersonajeValidado = false;
 
-
-            Scanner sc = new Scanner(System.in);
-            vistaBatalla.mensajeIntroduceNombre(); // Introduce nombre
-            String nombre = sc.nextLine();
+             // Introduce nombre
+            String nombre = VistaBatalla.mensajeIntroduceNombre();
             
             do {
                 try{
-                vistaBatalla.mensajeIntroduceFaccion();
-                faccion = Integer.parseInt(sc.nextLine());
+
+                faccion = VistaBatalla.mensajeIntroduceFaccion();
 
                 switch (faccion) {
                     case 1 -> {
                         do{
                             try{
-                                vistaBatalla.mensajeIntroduceRazaHeroe();
-                                int numeroHeroe = Integer.parseInt(sc.nextLine());
+
+                                int numeroHeroe = VistaBatalla.mensajeIntroduceRazaHeroe();
                                 switch (numeroHeroe) {
                                     case 1 -> {
-                                        raza = "Elfos";
+                                        raza = "Hobbits";
                                         heroeValidado = true;
                                     }
                                     case 2 -> {
@@ -97,12 +94,11 @@ public class ControladorPartida {
 
                     }
                     case 2 -> {
-                        vistaBatalla.mensajeIntroduceRazaBestia();
-                        int numeroBestia = Integer.parseInt(sc.nextLine());
+
+                        int numeroBestia = VistaBatalla.mensajeIntroduceRazaBestia();
                         raza = switch (numeroBestia) {
                             case 1 -> "Orco";
                             case 2 -> "Trasgo";
-                            case 3 -> "Uruk";
                             default -> raza;
                         };
                         faccionValidada = true;
@@ -117,8 +113,7 @@ public class ControladorPartida {
             do {
                 try {
 
-                    vistaBatalla.mensajeVida();
-                    vida = Integer.parseInt(sc.nextLine());
+                    vida = VistaBatalla.mensajeVida();
                     vidaValidada = true;
 
                 } catch (NumberFormatException e) {
@@ -129,8 +124,7 @@ public class ControladorPartida {
 
             do{
                 try{
-                    vistaBatalla.mensajeArmadura();
-                    armadura = Integer.parseInt(sc.nextLine());
+                    armadura = VistaBatalla.mensajeArmadura();
                     armaduraValidada = true;
                 }catch(NumberFormatException n){
                     System.out.println("Introduce un valor válido");
@@ -157,7 +151,7 @@ public class ControladorPartida {
             }
             do {
                 System.out.println("¿Crear otro personaje?: Si/No");
-                continuar = sc.nextLine();
+                continuar =  sc.nextLine();
                 if (continuar.equals("Si") || continuar.equals("No")) {
                     otroPersonajeValidado = true;
                 }else{
@@ -180,9 +174,7 @@ public class ControladorPartida {
         boolean opcionValidada = false;
         try{
             do{
-                vistaBatalla.preparacionBatalla();
-                Scanner sc = new Scanner(System.in);
-                int opcion = Integer.parseInt(sc.nextLine());
+                int opcion = VistaBatalla.preparacionBatalla();
 
                 switch (opcion){
                     case 1 -> {
@@ -211,6 +203,8 @@ public class ControladorPartida {
     // COMENZANDO LA BATALLA
 
     public void controladorBatalla(){
+
+
 
     }
 }

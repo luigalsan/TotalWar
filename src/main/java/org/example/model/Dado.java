@@ -2,5 +2,6 @@ package org.example.model;
 
 public interface Dado {
 
-    int tirarDado();
+    int tirarDado(Personaje personaje);
+
 }
