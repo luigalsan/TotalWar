@@ -11,11 +11,17 @@ public class Elfo extends Heroe {
 
     }
     @Override
-    public int tirarDado(Personaje personaje) {
-        if(personaje instanceof Orco){
+    public int tirarDado() {
 
-            return super.tirarDado(personaje) + 10;
-        }
-        return super.tirarDado(personaje);
+        return super.tirarDado();
+    }
+
+    public int tirarDadoEspecial(){
+
+        return this.tirarDado() + 10;
+    }
+
+    public String toString(){
+        return "Elfo{" + super.toString();
     }
 }

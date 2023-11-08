@@ -8,9 +8,9 @@ public class Main {
     public static void main(String[] args) {
 
         Game game = new Game();
+        ControladorPartida controlador = new ControladorPartida();
 
-        ControladorPartida miPartida = new ControladorPartida();
-        miPartida.seleccionPersonaje();
+        controlador.seleccionPersonaje();
 
 
 

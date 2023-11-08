@@ -41,8 +41,7 @@ public class VistaBatalla {
         Scanner sc = new Scanner(System.in);
         System.out.println("Elige raza: " +
                 "\n1. Orco" +
-                "\n2. Trasgo" +
-                "\n3. Uruk ");
+                "\n2. Trasgo");
         return Integer.parseInt(sc.nextLine());
     }
 
@@ -50,7 +49,7 @@ public class VistaBatalla {
         Scanner sc = new Scanner(System.in);
         System.out.println("Elige raza: " +
                 "\n1. Elfo" +
-                "\n2. Enano" +
+                "\n2. Hobbit" +
                 "\n3. Humano ");
         return Integer.parseInt(sc.nextLine());
     }
@@ -82,19 +81,16 @@ public class VistaBatalla {
 
     // MENSAJES PARA LA OPCIÓN 3. FIN DE PARTIDA
 
-    public void mensajeFinPartida(String muerto, String nombre) {
 
-        System.out.println("¡Muere " + muerto + " " + nombre + "!");
+    public static void detallePersonajesInicioBatalla(String nombreHeroe, String nombreBestia, int vidaHeroe, int vidaBestia, int armaduraHeroe, int armaduraBestia) {
 
-        String mensaje = (muerto.equals("Bestia")) ? "¡¡VICTORIA DE LOS HEROES!!" : "¡¡VICTORIA DE LAS BESTIAS!!";
-        System.out.println(mensaje);
-
+        System.out.println("Lucha entre " + nombreHeroe + " (Vida= " + vidaHeroe
+                + ") (Armadura= " + armaduraHeroe + ")" + " y" + nombreBestia + " (Vida= " + vidaBestia
+                + ") (Armadura= " + armaduraBestia + ")" );
     }
 
-    public static void detallePersonajesBatalla(String nombre, int valorDado, int vida, String armadura) {
-
-        System.out.println("Lucha entre " + nombre + " (Vida= " + vida
-                + ") (Armadura= " + armadura + ")");
+    public static void detallePersonajeResultado(String atacante, int potenciaOfensiva, int danoRecibido, String defensa){
+        System.out.println( atacante + " saca " + potenciaOfensiva + " y le quita " + danoRecibido + " vida a " + defensa);
     }
 
     public static void detalleMuerte(String nombre){

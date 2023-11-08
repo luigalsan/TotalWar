@@ -57,7 +57,7 @@ public class Game {
         }
     }
 
-    public void batalla(String mensaje){
+    public void batalla(){
 
         List<Personaje> ejercitoBien = new ArrayList<>();
         List<Personaje> ejercitoMal = new ArrayList<>();
@@ -95,27 +95,34 @@ public class Game {
                 Heroe heroe = (Heroe) ejercitoBien.get(i);
                 Bestia bestia = (Bestia) ejercitoMal.get(i);
 
-                System.out.println("Lucha entre " + heroe.getNombre() + " (Vida= " + heroe.getVida()
-                        + ") (Armadura= " + heroe.getArmadura() + ")");
+                VistaBatalla.detallePersonajesInicioBatalla(heroe.getNombre(), bestia.getNombre(), heroe.getVida(), bestia.getVida(), heroe.getArmadura(), bestia.getArmadura() );
 
                 // Obtener el valor de los dados en Héroes
                 if(heroe instanceof Elfo){
-                    valorDadoHeroe = Math.max(heroe.tirarDado(bestia), heroe.tirarDado(bestia)); // Tiran dos veces
+                    if(bestia instanceof Orco){
+                        valorDadoHeroe = Math.max(((Elfo) heroe).tirarDadoEspecial(), ((Elfo) heroe).tirarDadoEspecial()); // Dado daño adicional orco
+                    }else{
+                        valorDadoHeroe = Math.max(heroe.tirarDado(), heroe.tirarDado()); // Tiran dos veces
+                    }
                 }
                 if(heroe instanceof Humano){
-                    valorDadoHeroe = Math.max(heroe.tirarDado(bestia), heroe.tirarDado(bestia)); // Tira dos veces
+                    valorDadoHeroe = Math.max(heroe.tirarDado(), heroe.tirarDado()); // Tira dos veces
                 }
                 if(heroe instanceof Hobbit){
-                    valorDadoHeroe = Math.max(heroe.tirarDado(bestia), heroe.tirarDado(bestia)); // Tira dos veces
+                    if(bestia instanceof Trasgo){
+                        valorDadoHeroe = Math.max(((Hobbit) heroe).tirarDadoEspecial(), ((Hobbit) heroe).tirarDadoEspecial()); // Tira dos veces
+                    }else{
+                        valorDadoHeroe = Math.max(heroe.tirarDado(), heroe.tirarDado()); // Tira dos veces
+                    }
                 }
 
                 // Obtener el valor de los dados en Orco
                 if(bestia instanceof Orco){
-                    valorDadoBestia = bestia.tirarDado(heroe);
+                    valorDadoBestia = bestia.tirarDado();
                 }
 
                 if(bestia instanceof Trasgo){
-                    valorDadoBestia = bestia.tirarDado(heroe);
+                    valorDadoBestia = bestia.tirarDado();
                 }
 
                 // Comprobar armadura de cada personaje y en función de la puntuación de cada uno,
@@ -124,7 +131,8 @@ public class Game {
                 if(valorDadoHeroe > bestia.getArmadura()){
                     int danoHeroe = valorDadoHeroe - bestia.getArmadura();
                     bestia.setVida(bestia.getVida() - danoHeroe);
-                    VistaBatalla.detallePersonajesBatalla(heroe.getNombre(), valorDadoHeroe, danoHeroe, bestia.getNombre());
+                    VistaBatalla.detallePersonajeResultado(heroe.getNombre(), valorDadoHeroe, danoHeroe, bestia.getNombre());
+
                 }
 
 
@@ -136,7 +144,7 @@ public class Game {
                         danoBestia = valorDadoBestia - (int)(heroe.getArmadura() * 0.10);
                     }
                     heroe.setVida(heroe.getVida() - danoBestia);
-                    VistaBatalla.detallePersonajesBatalla(bestia.getNombre(), valorDadoBestia, danoBestia, heroe.getNombre());
+                    VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, danoBestia, heroe.getNombre());
                 }
 
             }

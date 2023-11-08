@@ -19,7 +19,7 @@ public class Bestia extends Personaje implements Dado {
     }
 
     @Override
-    public int tirarDado(Personaje personaje) {
+    public int tirarDado() {
         return dado.nextInt(90);
     }
 

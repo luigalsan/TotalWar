@@ -43,8 +43,7 @@ public abstract class Personaje {
 
     @Override
     public String toString() {
-        return "Personaje{" +
-                "nombre='" + nombre + '\'' +
+        return "nombre='" + nombre + '\'' +
                 ", vida=" + vida +
                 ", armadura=" + armadura +
                 '}';

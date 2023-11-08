@@ -9,8 +9,13 @@ public class Humano extends Heroe {
     }
 
     @Override
-    public int tirarDado(Personaje personaje){
+    public int tirarDado(){
 
-        return super.tirarDado(personaje);
+        return super.tirarDado();
+
+    }
+
+    public String toString(){
+        return "Humano{" + super.toString();
     }
 }

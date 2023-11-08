@@ -2,6 +2,7 @@ package org.example.controlador;
 
 
 import org.example.model.Game;
+import org.example.model.Personaje;
 import org.example.vista.VistaBatalla;
 
 import java.util.Scanner;
@@ -73,15 +74,15 @@ public class ControladorPartida {
                                 int numeroHeroe = VistaBatalla.mensajeIntroduceRazaHeroe();
                                 switch (numeroHeroe) {
                                     case 1 -> {
-                                        raza = "Hobbits";
+                                        raza = "Elfo";
                                         heroeValidado = true;
                                     }
                                     case 2 -> {
-                                        raza = "Enanos";
+                                        raza = "Hobbit";
                                         heroeValidado = true;
                                     }
                                     case 3 -> {
-                                        raza = "Humanos";
+                                        raza = "Humano";
                                         heroeValidado = true;
                                     }
                                     default -> System.out.println("Introduce una raza correcta");
@@ -137,9 +138,7 @@ public class ControladorPartida {
             if (faccion == 1) {
                 game.crearPersonajeHeroe(nombre, vida, armadura, raza);
                 System.out.println("Tu ejercito de Héroes está conformado por: ");
-                game.getEjercitoBien().forEach(heroe -> {
-                    System.out.println(heroe.toString());
-                });
+                game.getEjercitoBien().forEach(Personaje::toString);
 
             }
             else {

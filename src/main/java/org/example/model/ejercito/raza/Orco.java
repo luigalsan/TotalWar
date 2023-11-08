@@ -1,5 +1,6 @@
 package org.example.model.ejercito.raza;
 
+import org.example.model.Personaje;
 import org.example.model.ejercito.Bestia;
 
 public class Orco extends Bestia {
@@ -7,5 +8,12 @@ public class Orco extends Bestia {
         super(nombre, vida, armadura);
     }
 
+    @Override
+    public int tirarDado() {
+        return super.tirarDado();
+    }
 
+    public String toString(){
+        return "Orco{" + super.toString();
+    }
 }

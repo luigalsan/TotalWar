@@ -9,11 +9,15 @@ public class Hobbit extends Heroe {
     }
 
     @Override
-    public int tirarDado(Personaje personaje) {
-        if(personaje instanceof Trasgo){
+    public int tirarDado() {
+        return super.tirarDado();
+    }
 
-            return super.tirarDado(personaje) - 5;
-        }
-        return super.tirarDado(personaje);
+    public int tirarDadoEspecial(){
+        return super.tirarDado() - 5;
+    }
+
+    public String toString(){
+        return "Hobbit{" + super.toString();
     }
 }
