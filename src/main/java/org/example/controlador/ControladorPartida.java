@@ -12,23 +12,46 @@ public class ControladorPartida {
 
     Scanner sc = new Scanner(System.in);
     Game game = new Game();
-    String continuar = null;
 
+    public static boolean condicionNombre(String input) {
+        return input.matches("^[A-Z][a-zA-Z ]{2,}$");
+    }
 
     public void menuSeleccion(){
         boolean opcionValidada = false;
+        VistaBatalla.imprimirBanner();
         do{
             try{
                     int opcion = VistaBatalla.mensajeMenu();
                     switch (opcion) {
 
                         case 1 -> {
+                            // Borrar datos ejercito
                             seleccionPersonaje();
-                            opcionValidada = true;
                         }
-                        case 2 -> preparacionBatalla();
+                        case 2 -> {
+                            if(game.getEjercitoBien().isEmpty() || game.getEjercitoMal().isEmpty()){
+                                System.out.println("***** ¡ ATENCIÓN ! *****" +
+                                        "\nSe necesita crear un ejército de cada tipo para comenzar la batalla\n");
+                            }else {
+                                preparacionBatalla();
+                                opcionValidada = true;
+                                boolean continuarPartida = false;
+                                do {
+                                    String continuar =  VistaBatalla.mensajeJugarDeNuevo();
+                                    if (continuar.equals("Si") || continuar.equals("No")) {
+                                        continuarPartida = true;
+                                        opcionValidada = false;
+                                        game.borrarEjercitos();
+                                    }else{
+                                        System.out.println("Introduce un valor valido para continuar");
+                                    }
+                                }while(!continuarPartida);
+                            }
+                        }
                         case 3 -> {
                             System.out.println("Salir");
+                            opcionValidada = true;
                         }
                         default -> System.out.println("Introduce formato número correcto");
                     }
@@ -40,11 +63,12 @@ public class ControladorPartida {
     }
     // Selección personaje
     public void seleccionPersonaje() {
-
+        String continuarCreandoPersonaje = null;
         do {
 
             // Atributos para nuestros Personajes
             int faccion = 0;
+            String nombre = null;
             int vida = 0;
             int armadura = 0;
             String raza = null;
@@ -54,13 +78,22 @@ public class ControladorPartida {
             boolean faccionValidada = false;
             boolean heroeValidado = false;
             boolean bestiaValidado = false;
+            boolean nombreValidado = false;
             boolean vidaValidada = false;
             boolean armaduraValidada = false;
             boolean otroPersonajeValidado = false;
 
-             // Introduce nombre
-            String nombre = VistaBatalla.mensajeIntroduceNombre();
-            
+
+            while(!nombreValidado){
+                // Introduce nombre
+                nombre = VistaBatalla.mensajeIntroduceNombre();
+                nombreValidado = true;
+                if(!condicionNombre(nombre)){
+                    VistaBatalla.mensajeIntroduceNombreError();
+                    nombreValidado = false;
+                }
+            }
+
             do {
                 try{
 
@@ -95,14 +128,27 @@ public class ControladorPartida {
 
                     }
                     case 2 -> {
+                        do{
+                            try{
+                                int numeroBestia = VistaBatalla.mensajeIntroduceRazaBestia();
+                                switch (numeroBestia) {
+                                    case 1 -> {
+                                        raza = "Orco";
+                                        bestiaValidado = true;
+                                    }
+                                    case 2 ->{
+                                        raza = "Trasgo";
+                                        bestiaValidado = true;
+                                    }
+                                    default -> System.out.println("Introduce una raza correcta");
+                                };
 
-                        int numeroBestia = VistaBatalla.mensajeIntroduceRazaBestia();
-                        raza = switch (numeroBestia) {
-                            case 1 -> "Orco";
-                            case 2 -> "Trasgo";
-                            default -> raza;
-                        };
-                        faccionValidada = true;
+                            }catch (NumberFormatException e){
+                                System.out.println("Introduce un valor válido");
+                            }
+                            faccionValidada = true;
+                        }while(!bestiaValidado);
+
                     }
                     default -> System.out.println("Introduce la facción correcta");
                 }
@@ -135,30 +181,32 @@ public class ControladorPartida {
 
             //Paso estos atributos para la creación de mi personaje y los agrego al Set Bestia o Heroe
 
+            // Verificar que nombre no es null
+
             if (faccion == 1) {
                 game.crearPersonajeHeroe(nombre, vida, armadura, raza);
-                System.out.println("Tu ejercito de Héroes está conformado por: ");
-                game.getEjercitoBien().forEach(Personaje::toString);
+                VistaBatalla.detalleEjercito("Heroes");
+                game.getEjercitoBien().forEach(System.out::println);
 
             }
             else {
                 game.crearPersonajeBestia(nombre, vida, armadura, raza);
-                System.out.println("Tu ejercito de Bestias está conformado por: ");
-                game.getEjercitoMal().forEach(bestia -> {
-                    System.out.println(bestia.toString());
-                });
+                VistaBatalla.detalleEjercito("Bestias");
+                game.getEjercitoMal().forEach(System.out::println);
+
             }
+
+
             do {
-                System.out.println("¿Crear otro personaje?: Si/No");
-                continuar =  sc.nextLine();
-                if (continuar.equals("Si") || continuar.equals("No")) {
+                continuarCreandoPersonaje = VistaBatalla.mensajeIntroducirOtroPersonaje();
+                if (continuarCreandoPersonaje.equals("Si") || continuarCreandoPersonaje.equals("No")) {
                     otroPersonajeValidado = true;
                 }else{
                     System.out.println("Introduce un valor valido para continuar");
                 }
             }while(!otroPersonajeValidado);
 
-        } while (continuar.equalsIgnoreCase("Si"));
+        } while (continuarCreandoPersonaje.equalsIgnoreCase("Si"));
     }
 
     public void getPersonajes(){
@@ -171,30 +219,61 @@ public class ControladorPartida {
 
     public void preparacionBatalla(){
         boolean opcionValidada = false;
-        try{
+        boolean opcionOrdenarValidada = false;
+
             do{
-                int opcion = VistaBatalla.preparacionBatalla();
+                try{
+                    int opcion = VistaBatalla.preparacionBatalla();
 
-                switch (opcion){
-                    case 1 -> {
-                        game.ordenarLista(game.getEjercitoBien(), opcion);
-                        game.ordenarLista(game.getEjercitoMal(), opcion);
-                        opcionValidada = true;
-                    }
+                    switch (opcion){
+                        case 1 -> {
+                            try{
+                                do{
+                                    int opcionOrdenar = VistaBatalla.ordenarEjercitos();
+                                    switch(opcionOrdenar){
+                                        case 1 -> {
+                                            game.ordenarLista(game.getEjercitoBien(), opcionOrdenar);
+                                            game.ordenarLista(game.getEjercitoMal(), opcionOrdenar);
+                                            opcionOrdenarValidada = true;
+                                        }
+                                        case 2 -> {
+                                            game.ordenarLista(game.getEjercitoBien(), opcionOrdenar);
+                                            game.ordenarLista(game.getEjercitoMal(), opcionOrdenar);
+                                            opcionOrdenarValidada = true;
+                                        }
+                                        case 3 ->{
+                                            game.ordenarLista(game.getEjercitoBien(), opcionOrdenar);
+                                            game.ordenarLista(game.getEjercitoMal(), opcionOrdenar);
+                                            opcionOrdenarValidada = true;
+                                        }
+                                        default -> System.out.println("Elija una opción correcta");
+                                    }
 
-                    case 2 -> {
-                        System.out.println("Empieza la batalla");
-                        //Aquí función de partida;
-                        opcionValidada = true;
+                                    VistaBatalla.detalleEjercito("Heroes");
+                                    game.getEjercitoBien().forEach(System.out::println);
+                                    System.out.println();
+
+                                    VistaBatalla.detalleEjercito("Bestias");
+                                    game.getEjercitoMal().forEach(System.out::println);
+                                    System.out.println();
+
+                                }while(!opcionOrdenarValidada);
+
+                            }catch(NumberFormatException e){
+                                System.out.println("El formato introducido no es válido");
+                            }
+                        }
+                        case 2 -> {
+                            System.out.println("Empieza la batalla");
+                            controladorBatalla();
+                            opcionValidada = true;
+                        }
+                        default -> System.out.println("Elija una opción correcta");
                     }
-                    default -> System.out.println("Elija una opción correcta");
+                }catch(NumberFormatException e){
+                    System.out.println("El formato introducido no es válido");
                 }
             }while(!opcionValidada);
-
-
-        }catch(NumberFormatException e){
-            System.out.println("El formato introducido no es válido");
-        }
 
     }
 
@@ -202,8 +281,6 @@ public class ControladorPartida {
     // COMENZANDO LA BATALLA
 
     public void controladorBatalla(){
-
-
-
+        game.batalla();
     }
 }

@@ -16,13 +16,13 @@ public class Game {
 
     public void crearPersonajeHeroe(String nombre, int vida, int armadura, String raza){
         switch (raza) {
-            case "Elfos" -> {
+            case "Elfo" -> {
                 ejercitoBien.add(new Elfo(nombre, vida, armadura));
             }
-            case "Hobbits" -> {
+            case "Hobbit" -> {
                 ejercitoBien.add(new Hobbit(nombre, vida, armadura));
             }
-            case "Humanos" -> {
+            case "Humano" -> {
                 ejercitoBien.add(new Humano(nombre, vida, armadura));
             }
         }
@@ -141,7 +141,7 @@ public class Game {
                     if(bestia instanceof Orco)
                         danoBestia = valorDadoBestia - heroe.getArmadura();
                     else{
-                        danoBestia = valorDadoBestia - (int)(heroe.getArmadura() * 0.10);
+                        danoBestia = valorDadoBestia - ((heroe.getArmadura() - (int)(heroe.getArmadura() * 0.10)));
                     }
                     heroe.setVida(heroe.getVida() - danoBestia);
                     VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, danoBestia, heroe.getNombre());
@@ -200,14 +200,9 @@ public class Game {
         this.ejercitoMal = ejercitoMal;
     }
 
-    //    public void incharseAOstias(){
-//        Bestia miBestia = new Bestia("Paco",100,20,"tusMuertos");
-//
-//        if (miBestia instanceof Bestia){
-//            System.out.println("ahora si");
-//        }
-//
-//    }
-
+    public void borrarEjercitos(){
+        this.ejercitoMal = new LinkedList<>();
+        this.ejercitoBien = new LinkedList<>();
+    }
 
 }
