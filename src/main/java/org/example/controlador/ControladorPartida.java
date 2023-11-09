@@ -283,4 +283,6 @@ public class ControladorPartida {
     public void controladorBatalla(){
         game.batalla();
     }
+
+
 }

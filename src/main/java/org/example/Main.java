@@ -14,7 +14,7 @@ public class Main {
 
         ControladorPartida controladorPartida = new ControladorPartida();
         //Menú selección
-        controladorPartida.controladorBatalla();
+        controladorPartida.menuSeleccion();
 
     }
 }

@@ -59,15 +59,15 @@ public class Game {
 
     public void batalla(){
 
-        List<Personaje> ejercitoBien = new ArrayList<>();
-        List<Personaje> ejercitoMal = new ArrayList<>();
+        List<Personaje> ejercitoBien = new LinkedList<>();
+        List<Personaje> ejercitoMal = new LinkedList<>();
 
 
         // Creando heroes para prueba
         ejercitoBien.add(new Elfo("Légolas", 150, 30));
+        ejercitoBien.add(new Humano("Frodo", 20, 10));
         ejercitoBien.add(new Humano("Aragorn", 150, 50));
         ejercitoBien.add(new Humano("Gandalf", 100, 60));
-        ejercitoBien.add(new Humano("Frodo", 20, 10));
         ejercitoBien.add(new Humano("Boromir", 100, 60));
 
 
@@ -134,17 +134,21 @@ public class Game {
                     VistaBatalla.detallePersonajeResultado(heroe.getNombre(), valorDadoHeroe, danoHeroe, bestia.getNombre());
 
                 }
+                int danoBestia;
+                if(bestia instanceof Orco){
 
-
-                if(valorDadoBestia > heroe.getArmadura()){
-                    int danoBestia = 0;
-                    if(bestia instanceof Orco)
-                        danoBestia = valorDadoBestia - heroe.getArmadura();
-                    else{
-                        danoBestia = valorDadoBestia - ((heroe.getArmadura() - (int)(heroe.getArmadura() * 0.10)));
+                    int reduccionArmaduraHeroe = (heroe.getArmadura() - (int)(heroe.getArmadura() * 0.10));
+                    if(valorDadoBestia > reduccionArmaduraHeroe) {
+                        danoBestia = valorDadoBestia - reduccionArmaduraHeroe;
+                        heroe.setVida(heroe.getVida() - danoBestia);
+                        VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, danoBestia, heroe.getNombre());
                     }
-                    heroe.setVida(heroe.getVida() - danoBestia);
-                    VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, danoBestia, heroe.getNombre());
+                }else{
+                    if(valorDadoBestia > heroe.getArmadura()){
+                        danoBestia = valorDadoBestia - heroe.getArmadura();
+                        heroe.setVida(heroe.getVida() - danoBestia);
+                        VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, danoBestia, heroe.getNombre());
+                    }
                 }
 
             }

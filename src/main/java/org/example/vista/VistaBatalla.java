@@ -10,18 +10,31 @@ public class VistaBatalla {
     }
     public static void imprimirBanner() {
         System.out.println();
-        String banner =
-                "ooooo                                 .o8                  .o88o.          .   oooo                       ooooooooo.    o8o                                  \n" +
-                        "`888'                                \"888                  888 `\"        .o8   `888                       `888   `Y88.  `\"'                                  \n" +
-                        " 888          .ooooo.  oooo d8b  .oooo888        .ooooo.  o888oo       .o888oo  888 .oo.    .ooooo.        888   .d88' oooo  ooo. .oo.    .oooooooo  .oooo.o \n" +
-                        " 888         d88' `88b `888\"8P d88' `888       d88' `88b  888           888    888P\"Y88b  d88' `88b       888ooo88P'  `888  `888P\"Y88b  888' `88b  d88(  \"8 \n" +
-                        " 888         888   888  888     888   888       888   888  888           888    888   888  888ooo888       888`88b.     888   888   888  888   888  `\"Y88b.  \n" +
-                        " 888       o 888   888  888     888   888       888   888  888           888 .  888   888  888    .o       888  `88b.   888   888   888  `88bod8P'  o.  )88b \n" +
-                        "o888ooooood8 `Y8bod8P' d888b    `Y8bod88P\"      `Y8bod8P' o888o          \"888\" o888o o888o `Y8bod8P'      o888o  o888o o888o o888o o888o `8oooooo.  8\"\"888P' \n" +
-                        "                                                                                                                                         d\"     YD           \n" +
-                        "                                                                                                                                         \"Y88888P'           ";
 
-        System.out.println(banner);
+        String totalWar = "          _/_/_/_/_/    _/_/    _/_/_/_/_/    _/_/    _/            _/          _/    _/_/    _/_/_/    \n" +
+                "             _/      _/    _/      _/      _/    _/  _/            _/          _/  _/    _/  _/    _/   \n" +
+                "            _/      _/    _/      _/      _/_/_/_/  _/            _/    _/    _/  _/_/_/_/  _/_/_/      \n" +
+                "           _/      _/    _/      _/      _/    _/  _/              _/  _/  _/    _/    _/  _/    _/     \n" +
+                "          _/        _/_/        _/      _/    _/  _/_/_/_/          _/  _/      _/    _/  _/    _/";
+
+        String lordOfTheRings = "         ___ . .  _\n" +
+                "\"T$$$P\"   |  |_| |_\n" +
+                " :$$$     |  | | |_\n" +
+                " :$$$                                                      \"T$$$$$$$b.\n" +
+                " :$$$     .g$$$$$p.   T$$$$b.    T$$$$$bp.                   BUG    \"Tb      T$b      T$P   .g$P^^T$$  ,gP^^T$$\n" +
+                "  $$$    d^\"     \"^b   $$  \"Tb    $$    \"Tb    .s^s. :sssp   $$$     :$; T$$P $^b.     $   dP\"     `T :$P    `T\n" +
+                "  :$$   dP         Tb  $$   :$;   $$      Tb  d'   `b $      $$$     :$;  $$  $ `Tp    $  d$           Tbp.\n" +
+                "  :$$  :$;         :$; $$   :$;   $$      :$; T.   .P $^^    $$$    .dP   $$  $   ^b.  $ :$;            \"T$$p.\n" +
+                "  $$$  :$;         :$; $$...dP    $$      :$;  `^s^' .$.     $$$...dP\"    $$  $    `Tp $ :$;     \"T$$      \"T$b\n" +
+                "  $$$   Tb.       ,dP  $$\"\"\"Tb    $$      dP \"\"$\"\"$\" \"$\"$^^  $$$\"\"T$b     $$  $      ^b$  T$       T$ ;      $$;\n" +
+                "  $$$    Tp._   _,gP   $$   `Tb.  $$    ,dP    $  $...$ $..  $$$   T$b    :$  $       `$   Tb.     :$ T.    ,dP\n" +
+                "  $$$;    \"^$$$$$^\"   d$$     `T.d$$$$$P^\"     $  $\"\"\"$ $\"\", $$$    T$b  d$$bd$b      d$b   \"^TbsssP\" 'T$bgd$P\n" +
+                "  $$$b.____.dP                                 $ .$. .$.$ss,d$$$b.   T$b.\n" +
+                ".d$$$$$$$$$$P  ";
+
+        System.out.println(lordOfTheRings);
+        System.out.println();
+        System.out.println(totalWar);
         System.out.println();
     }
 
