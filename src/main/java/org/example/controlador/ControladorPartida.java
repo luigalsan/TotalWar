@@ -14,7 +14,7 @@ public class ControladorPartida {
     Game game = new Game();
 
     public static boolean condicionNombre(String input) {
-        return input.matches("^[A-Z][a-zA-Z ]{2,}$");
+        return input.matches("^[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñA-ZÁÉÍÓÚÜÑ]{2,}$");
     }
 
     public void menuSeleccion(){
@@ -44,7 +44,7 @@ public class ControladorPartida {
                                         opcionValidada = false;
                                         game.borrarEjercitos();
                                     }else{
-                                        System.out.println("Introduce un valor valido para continuar");
+                                        VistaBatalla.mensajeDefault();
                                     }
                                 }while(!continuarPartida);
                             }
@@ -53,10 +53,10 @@ public class ControladorPartida {
                             System.out.println("Salir");
                             opcionValidada = true;
                         }
-                        default -> System.out.println("Introduce formato número correcto");
+                        default -> VistaBatalla.mensajeDefault();
                     }
                 }catch (NumberFormatException e){
-                    System.out.println("Opción introducida no válida");
+                    VistaBatalla.mensajeNumberException();
                 }
 
             }while (!opcionValidada);
@@ -118,10 +118,10 @@ public class ControladorPartida {
                                         raza = "Humano";
                                         heroeValidado = true;
                                     }
-                                    default -> System.out.println("Introduce una raza correcta");
+                                    default -> VistaBatalla.mensajeDefault();
                                 }
                             }catch(NumberFormatException e){
-                                System.out.println("Introduce un valor válido");
+                                VistaBatalla.mensajeNumberException();
                             }
                             faccionValidada = true;
                         }while(!heroeValidado);
@@ -140,31 +140,35 @@ public class ControladorPartida {
                                         raza = "Trasgo";
                                         bestiaValidado = true;
                                     }
-                                    default -> System.out.println("Introduce una raza correcta");
+                                    default -> VistaBatalla.mensajeDefault();
                                 };
 
                             }catch (NumberFormatException e){
-                                System.out.println("Introduce un valor válido");
+                                VistaBatalla.mensajeNumberException();
                             }
                             faccionValidada = true;
                         }while(!bestiaValidado);
 
                     }
-                    default -> System.out.println("Introduce la facción correcta");
+                    default -> VistaBatalla.mensajeDefault();
                 }
                 }catch(NumberFormatException e){
-                    System.out.println("Introduce un valor válido");
+                    VistaBatalla.mensajeNumberException();
                 }
             }while(!faccionValidada);
 
             do {
                 try {
-
+                    // La vida tiene que ser mayor que cero
                     vida = VistaBatalla.mensajeVida();
                     vidaValidada = true;
+                    if(vida <= 0){
+                        VistaBatalla.mensajeValorMayorCero();
+                        vidaValidada = false;
+                    }
 
                 } catch (NumberFormatException e) {
-                    System.out.println("Introduce un valor válido");
+                    VistaBatalla.mensajeNumberException();
                 }
             }while(!vidaValidada);
 
@@ -173,8 +177,12 @@ public class ControladorPartida {
                 try{
                     armadura = VistaBatalla.mensajeArmadura();
                     armaduraValidada = true;
+                    if(armadura <= 0){
+                        VistaBatalla.mensajeValorMayorCero();
+                        armaduraValidada = false;
+                    }
                 }catch(NumberFormatException n){
-                    System.out.println("Introduce un valor válido");
+                    VistaBatalla.mensajeNumberException();
                 }
             }while(!armaduraValidada);
 
@@ -202,19 +210,13 @@ public class ControladorPartida {
                 if (continuarCreandoPersonaje.equals("Si") || continuarCreandoPersonaje.equals("No")) {
                     otroPersonajeValidado = true;
                 }else{
-                    System.out.println("Introduce un valor valido para continuar");
+                    VistaBatalla.mensajeDefault();
                 }
             }while(!otroPersonajeValidado);
 
         } while (continuarCreandoPersonaje.equalsIgnoreCase("Si"));
     }
 
-    public void getPersonajes(){
-        System.out.println("Tu ejercito de Héroes está conformado por: ");
-        game.getEjercitoBien().forEach(heroe -> {
-            System.out.println(heroe.toString());
-        });
-    }
     // Comienzo partida
 
     public void preparacionBatalla(){
@@ -246,7 +248,7 @@ public class ControladorPartida {
                                             game.ordenarLista(game.getEjercitoMal(), opcionOrdenar);
                                             opcionOrdenarValidada = true;
                                         }
-                                        default -> System.out.println("Elija una opción correcta");
+                                        default -> VistaBatalla.mensajeDefault();
                                     }
 
                                     VistaBatalla.detalleEjercito("Heroes");
@@ -260,7 +262,7 @@ public class ControladorPartida {
                                 }while(!opcionOrdenarValidada);
 
                             }catch(NumberFormatException e){
-                                System.out.println("El formato introducido no es válido");
+                                VistaBatalla.mensajeNumberException();
                             }
                         }
                         case 2 -> {
@@ -268,10 +270,10 @@ public class ControladorPartida {
                             controladorBatalla();
                             opcionValidada = true;
                         }
-                        default -> System.out.println("Elija una opción correcta");
+                        default -> VistaBatalla.mensajeDefault();
                     }
                 }catch(NumberFormatException e){
-                    System.out.println("El formato introducido no es válido");
+                    VistaBatalla.mensajeNumberException();
                 }
             }while(!opcionValidada);
 
