@@ -10,18 +10,31 @@ public class VistaBatalla {
     }
     public static void imprimirBanner() {
         System.out.println();
-        String banner =
-                "ooooo                                 .o8                  .o88o.          .   oooo                       ooooooooo.    o8o                                  \n" +
-                        "`888'                                \"888                  888 `\"        .o8   `888                       `888   `Y88.  `\"'                                  \n" +
-                        " 888          .ooooo.  oooo d8b  .oooo888        .ooooo.  o888oo       .o888oo  888 .oo.    .ooooo.        888   .d88' oooo  ooo. .oo.    .oooooooo  .oooo.o \n" +
-                        " 888         d88' `88b `888\"8P d88' `888       d88' `88b  888           888    888P\"Y88b  d88' `88b       888ooo88P'  `888  `888P\"Y88b  888' `88b  d88(  \"8 \n" +
-                        " 888         888   888  888     888   888       888   888  888           888    888   888  888ooo888       888`88b.     888   888   888  888   888  `\"Y88b.  \n" +
-                        " 888       o 888   888  888     888   888       888   888  888           888 .  888   888  888    .o       888  `88b.   888   888   888  `88bod8P'  o.  )88b \n" +
-                        "o888ooooood8 `Y8bod8P' d888b    `Y8bod88P\"      `Y8bod8P' o888o          \"888\" o888o o888o `Y8bod8P'      o888o  o888o o888o o888o o888o `8oooooo.  8\"\"888P' \n" +
-                        "                                                                                                                                         d\"     YD           \n" +
-                        "                                                                                                                                         \"Y88888P'           ";
 
-        System.out.println(banner);
+        String totalWar = "          _/_/_/_/_/    _/_/    _/_/_/_/_/    _/_/    _/            _/          _/    _/_/    _/_/_/    \n" +
+                "             _/      _/    _/      _/      _/    _/  _/            _/          _/  _/    _/  _/    _/   \n" +
+                "            _/      _/    _/      _/      _/_/_/_/  _/            _/    _/    _/  _/_/_/_/  _/_/_/      \n" +
+                "           _/      _/    _/      _/      _/    _/  _/              _/  _/  _/    _/    _/  _/    _/     \n" +
+                "          _/        _/_/        _/      _/    _/  _/_/_/_/          _/  _/      _/    _/  _/    _/";
+
+        String lordOfTheRings = "         ___ . .  _\n" +
+                "\"T$$$P\"   |  |_| |_\n" +
+                " :$$$     |  | | |_\n" +
+                " :$$$                                                      \"T$$$$$$$b.\n" +
+                " :$$$     .g$$$$$p.   T$$$$b.    T$$$$$bp.                   BUG    \"Tb      T$b      T$P   .g$P^^T$$  ,gP^^T$$\n" +
+                "  $$$    d^\"     \"^b   $$  \"Tb    $$    \"Tb    .s^s. :sssp   $$$     :$; T$$P $^b.     $   dP\"     `T :$P    `T\n" +
+                "  :$$   dP         Tb  $$   :$;   $$      Tb  d'   `b $      $$$     :$;  $$  $ `Tp    $  d$           Tbp.\n" +
+                "  :$$  :$;         :$; $$   :$;   $$      :$; T.   .P $^^    $$$    .dP   $$  $   ^b.  $ :$;            \"T$$p.\n" +
+                "  $$$  :$;         :$; $$...dP    $$      :$;  `^s^' .$.     $$$...dP\"    $$  $    `Tp $ :$;     \"T$$      \"T$b\n" +
+                "  $$$   Tb.       ,dP  $$\"\"\"Tb    $$      dP \"\"$\"\"$\" \"$\"$^^  $$$\"\"T$b     $$  $      ^b$  T$       T$ ;      $$;\n" +
+                "  $$$    Tp._   _,gP   $$   `Tb.  $$    ,dP    $  $...$ $..  $$$   T$b    :$  $       `$   Tb.     :$ T.    ,dP\n" +
+                "  $$$;    \"^$$$$$^\"   d$$     `T.d$$$$$P^\"     $  $\"\"\"$ $\"\", $$$    T$b  d$$bd$b      d$b   \"^TbsssP\" 'T$bgd$P\n" +
+                "  $$$b.____.dP                                 $ .$. .$.$ss,d$$$b.   T$b.\n" +
+                ".d$$$$$$$$$$P  ";
+
+        System.out.println(lordOfTheRings);
+        System.out.println();
+        System.out.println(totalWar);
         System.out.println();
     }
 
@@ -44,8 +57,13 @@ public class VistaBatalla {
     }
 
     public static void mensajeIntroduceNombreError(){
-        System.out.println("***** ¡ ATENCIÓN ! *****" +
+        System.out.println("*************************************** ¡ ATENCIÓN ! ***************************************" +
                 "\nPara crear el personaje, es necesario introducir un nombre que empiece por mayúscula y al menos tenga tres letras para crear el personaje\n");
+    }
+
+    public static void mensajeValorMayorCero(){
+        System.out.println("***** ¡ ATENCIÓN ! *****" +
+                "\nEl valor introducido tiene que ser mayor que 0\n");
     }
 
     public static String mensajeJugarDeNuevo(){
@@ -100,6 +118,18 @@ public class VistaBatalla {
         return sc.nextLine();
     }
 
+    public static void mensajeNumberException(){
+         System.out.println("***** ¡ ATENCIÓN ! *****" +
+                "\nIntroduce un valor válido\n");
+
+
+    }
+
+    public static void mensajeDefault(){
+        System.out.println("***** ¡ ATENCIÓN ! *****" +
+                "\nIntroduce una opción valida\n");
+    }
+
     // MENSAJES PARA LA OPCIÓN 2. JUGAR
 
     // 2.1. PREPARAR CAMPO DE BATALLA
@@ -140,13 +170,104 @@ public class VistaBatalla {
         System.out.println("¡Muere " + nombre + "!");
     }
 
+    public static void mensajeTurno(int turno){
+        System.out.println("Turno: " + turno);
+    }
     public static void victoriaHeroes(){
-        System.out.println("¡¡¡ VICTORIA DE LOS HEROES !!!");
+        System.out.println();
+        String letreroVictoria =
+                "Yb    dP 88  dP\"\"b8 888888  dP\"Yb  88\"\"Yb 88    db        8888b.  888888     88      dP\"Yb  .dP\"Y8     88  88 888888 88\"\"Yb  dP\"Yb  888888 .dP\"Y8 \n" +
+                        " Yb  dP  88 dP   `\"   88   dP   Yb 88__dP 88   dPYb        8I  Yb 88__       88     dP   Yb `Ybo.\"     88  88 88__   88__dP dP   Yb 88__   `Ybo.\" \n" +
+                        "  YbdP   88 Yb        88   Yb   dP 88\"Yb  88  dP__Yb       8I  dY 88\"\"       88  .o Yb   dP o.`Y8b     888888 88\"\"   88\"Yb  Yb   dP 88\"\"   o.`Y8b \n" +
+                        "   YP    88  YboodP   88    YbodP  88  Yb 88 dP\"\"\"\"Yb     8888Y\"  888888     88ood8  YbodP  8bodP'     88  88 888888 88  Yb  YbodP  888888 8bodP  ";
+
+        System.out.println(letreroVictoria);
+        System.out.println();
+
+        String pattern = "                                  ....\n" +
+                "                                .'' .'''\n" +
+                ".                             .'   :\n" +
+                "\\\\                          .:    :\n" +
+                " \\\\                        _:    :       ..----.._\n" +
+                "  \\\\                    .:::.....:::.. .'         ''.\n" +
+                "   \\\\                 .'  #-. .-######'     #        '.\n" +
+                "    \\\\                 '.##'/ ' ################       :\n" +
+                "     \\\\                  #####################         :\n" +
+                "      \\\\               ..##.-.#### .''''###'.._        :\n" +
+                "       \\\\             :--:########:            '.    .' :\n" +
+                "        \\\\..__...--.. :--:#######.'   '.         '.     :\n" +
+                "        :     :  : : '':'-:'':'::        .         '.  .'\n" +
+                "        '---'''..: :    ':    '..'''.      '.        :'\n" +
+                "           \\\\  :: : :     '      ''''''.     '.      .:\n" +
+                "            \\\\ ::  : :     '            '.      '      :\n" +
+                "             \\\\::   : :           ....' ..:       '     '.\n" +
+                "              \\:\\  : :    .....####\\ .~~.:.             :\n" +
+                "               \\::   : :    '#######'===. ~ |.'-.   . '''.. :\n" +
+                "                \\    .'  '########### \\ \\ _.' '. '-.       '.\n" +
+                "                :\\  :     ########   \\ \\      '.  '-.        :\n" +
+                "               :  \\'    '   #### :    \\ \\      :.    '-.      :\n" +
+                "              :  .'\\   :'  :     :     \\ \\       :      '-.    :\n" +
+                "             : .'  .\\  '  :      :     :\\ \\       :        '.   :\n" +
+                "             ::   :  \\'  :.      :     :  \\ \\      :          '. :\n" +
+                "             ::. :    \\  : :      :    ;  \\ \\     :           '.:\n" +
+                "              : ':    '\\ :  :     :     :  \\:\\     :        ..'\n" +
+                "                 :    ' \\ :        :     ;  \\|      :   .'''\n" +
+                "                 '.   '  \\:                         :.''\n" +
+                "                  .:..... \\:       :            ..''\n" +
+                "                 '._____|'.\\......'''''''.:..'''\n" +
+                "                            \\";
+
+        System.out.println(pattern);
+
+
     }
 
     public static void victoriaBestias(){
-        System.out.println("¡¡¡ VICTORIA DE LAS BESTIAS !!!");
+        System.out.println();
+
+        String letreroVictoria =
+                "Yb    dP 88  dP\"\"b8 888888  dP\"Yb  88\"\"Yb 88    db        8888b.  888888     88        db    .dP\"Y8     88\"\"Yb 888888 .dP\"Y8 888888 88    db    .dP\"Y8 \n" +
+                        " Yb  dP  88 dP   `\"   88   dP   Yb 88__dP 88   dPYb        8I  Yb 88__       88       dPYb   `Ybo.\"     88__dP 88__   `Ybo.\"   88   88   dPYb   `Ybo.\" \n" +
+                        "  YbdP   88 Yb        88   Yb   dP 88\"Yb  88  dP__Yb       8I  dY 88\"\"       88  .o  dP__Yb  o.`Y8b     88\"\"Yb 88\"\"   o.`Y8b   88   88  dP__Yb  o.`Y8b \n" +
+                        "   YP    88  YboodP   88    YbodP  88  Yb 88 dP\"\"\"\"Yb     8888Y\"  888888     88ood8 dP\"\"\"\"Yb 8bodP'     88oodP 888888 8bodP'   88   88 dP\"\"\"\"Yb 8bodP'  ";
+
+        System.out.println(letreroVictoria);
+
+
+        System.out.println();
+
+        String logoBestia = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀        ⣄⠤⠐⠂⠘⠗⠦⣄⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀⠀⠀        ⣀⠤⠊⡟⣷⣄⠀⠀⠀⣄⣠⣿⣄⠀⠀⠀⠀⠀⠀\n" +
+                "⠀⠀⠀⠀⠀        ⠔⠉⠀⠀⠀⡜⠈⠃⠀⠀⠀⠾⢾⣿⣿⣷⣄⠀⠀⠀⠀\n" +
+                "⠀⠀⠀        ⢀⠞⠀⠀⠀⠀⢀⣧⡮⡀⣄⠀⣠⣤⢄⢽⣿⣿⣿⡇⠀⠀⠀\n" +
+                "⠀⠀        ⢀⡊⠀⠀⠀⢰⠾⣿⣿⡷⠀⠀⠩⢀⣽⣾⣿⣿⣿⣿⠟⠀⠀⠀\n" +
+                "⠀⠀        ⠸⡷⠀⠀⢀⢼⠒⢸⣿⣯⣿⣜⣵⣿⣿⣿⣿⣿⣿⠋⠀⠀⠀⠀\n" +
+                "⠀⠀        ⢀⣷⢄⠀⠀⠘⣀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀\n" +
+                "⠀⠀        ⠘⢹⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠉⢻⣿⣿⣷⣆⠀⠀\n" +
+                "⠀⠀        ⢠⠀⣀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢻⣿⣿⣿⡀⠀\n" +
+                "        ⢀⣿⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡌⠰⠼⢻⣿⣏⡇⠀\n" +
+                "        ⣿⣿⠒⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⢰⡀⠀⠀⠀⠀⠀\n" +
+                "        ⢻⣿⣄⠀⣿⣿⣿⣿⣿⣿⣿⣿⠏⠚⠁⠀⠈⢆⠀⠀⠀⠀⠀⠀\n" +
+                "        ⢸⣿⣿⣷⣿⣿⣿⣿⠟⠛⣿⠋⠀⠀⠀⠀⠀⢸⡀⠀⠀⠀⠀⠀⠀\n" +
+                "        ⢸⣿⣿⣿⣿⡿⠟⠁⠀⠀⠙⢦⡀⣄⣠⠴⠢⣾⣿⣿⣿⣶⣄⠀\n" +
+                "        ⣾⣿⣿⣿⣿⣷⣶⣶⣄⠀⠀⠀⣁⠈⢇⠀⢀⣽⣿⣿⣿⣿⣿⣦⠀\n" +
+                "        ⠈⠙⢿⣿⣿⣿⣿⠛⢿⡄⠀⠸⣿⣦⣈⣷⣿⡏⠙⠛⠛⠻⢿⣿⡆\n" +
+                "⠀⠀        ⣠⣿⣿⡈⢿⣿⡁⡘⠀⠀⠀⣹⣿⣿⠛⠛⠁⠀⠀⠀⠀⠀⢿⠇\n" +
+                "        ⢀⣴⣿⣿⠟⠀⠘⠻⠿⠃⠀⠀⠸⢿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠃\n" +
+                "        ⢸⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣆⡀⠀⠀⠀⠀⠀⠀⠀\n" +
+                "⠀        ⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠿⢿⣿⣿⡿⠿⠂";
+
+        System.out.println(logoBestia);
+        System.out.println();
     }
 
+    public static void empateHeroesBestias(){
+        String letreroEmpate =
+                "888888 8b    d8 88\"\"Yb    db    888888 888888     888888 88b 88 888888 88\"\"Yb 888888     88  88 888888 88\"\"Yb  dP\"Yb  888888 .dP\"Y8     Yb  dP     88\"\"Yb 888888 .dP\"Y8 888888 88    db    .dP\"Y8 \n" +
+                        "88__   88b  d88 88__dP   dPYb     88   88__       88__   88Yb88   88   88__dP 88__       88  88 88__   88__dP dP   Yb 88__   `Ybo.\"      YbdP      88__dP 88__   `Ybo.\"   88   88   dPYb   `Ybo.\" \n" +
+                        "88\"\"   88YbdP88 88\"\"\"   dP__Yb    88   88\"\"       88\"\"   88 Y88   88   88\"Yb  88\"\"       888888 88\"\"   88\"Yb  Yb   dP 88\"\"   o.`Y8b       8P       88\"\"Yb 88\"\"   o.`Y8b   88   88  dP__Yb  o.`Y8b \n" +
+                        "888888 88 YY 88 88     dP\"\"\"\"Yb   88   888888     888888 88  Y8   88   88  Yb 888888     88  88 888888 88  Yb  YbodP  888888 8bodP'      dP        88oodP 888888 8bodP'   88   88 dP\"\"\"\"Yb 8bodP' ";
 
+        System.out.println(letreroEmpate);
+    }
 }

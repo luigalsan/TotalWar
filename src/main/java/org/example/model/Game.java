@@ -40,7 +40,6 @@ public class Game {
         }
     }
 
-
     public void ordenarLista(List<Personaje> listaPersonajes, int opcion) {
 
         switch (opcion) {
@@ -59,23 +58,23 @@ public class Game {
 
     public void batalla(){
 
-        List<Personaje> ejercitoBien = new ArrayList<>();
-        List<Personaje> ejercitoMal = new ArrayList<>();
-
-
-        // Creando heroes para prueba
-        ejercitoBien.add(new Elfo("Légolas", 150, 30));
-        ejercitoBien.add(new Humano("Aragorn", 150, 50));
-        ejercitoBien.add(new Humano("Gandalf", 100, 60));
-        ejercitoBien.add(new Humano("Frodo", 20, 10));
-        ejercitoBien.add(new Humano("Boromir", 100, 60));
-
-
-        // Creando bestias para prueba
-        ejercitoMal.add(new Orco("Lurtz", 20, 10));
-        ejercitoMal.add(new Orco("Shagrat", 220, 50));
-        ejercitoMal.add(new Trasgo("Uglúk", 10, 30));
-        ejercitoMal.add(new Trasgo("Mauhúr", 100, 30));
+//        List<Personaje> ejercitoBien = new LinkedList<>();
+//        List<Personaje> ejercitoMal = new LinkedList<>();
+//
+//
+//        // Creando heroes para prueba
+//        ejercitoBien.add(new Elfo("Légolas", 150, 30));
+//        ejercitoBien.add(new Humano("Frodo", 20, 10));
+//        ejercitoBien.add(new Humano("Aragorn", 150, 50));
+//        ejercitoBien.add(new Humano("Gandalf", 100, 60));
+//        ejercitoBien.add(new Humano("Boromir", 100, 60));
+//
+//
+//        // Creando bestias para prueba
+//        ejercitoMal.add(new Orco("Lurtz", 200, 60));
+//        ejercitoMal.add(new Orco("Shagrat", 220, 50));
+//        ejercitoMal.add(new Trasgo("Uglúk", 120, 30));
+//        ejercitoMal.add(new Trasgo("Mauhúr", 100, 30));
 
 
 
@@ -89,7 +88,7 @@ public class Game {
 
             Iterator<Personaje> iteradorEjercitoMal = ejercitoMal.iterator();
             Iterator<Personaje> iteradorEjercitoBien = ejercitoBien.iterator();
-            System.out.println("Turno: " + turno);
+            VistaBatalla.mensajeTurno(turno);
             //Cada turno habrá que comprobar qué lista es la menor
             for (int i = 0; i < sizeListaMenor; i++){
                 Heroe heroe = (Heroe) ejercitoBien.get(i);
@@ -121,30 +120,34 @@ public class Game {
                     valorDadoBestia = bestia.tirarDado();
                 }
 
-                if(bestia instanceof Trasgo){
+                else if(bestia instanceof Trasgo){
                     valorDadoBestia = bestia.tirarDado();
                 }
 
                 // Comprobar armadura de cada personaje y en función de la puntuación de cada uno,
                 // hacer daño o no
 
-                if(valorDadoHeroe > bestia.getArmadura()){
-                    int danoHeroe = valorDadoHeroe - bestia.getArmadura();
-                    bestia.setVida(bestia.getVida() - danoHeroe);
-                    VistaBatalla.detallePersonajeResultado(heroe.getNombre(), valorDadoHeroe, danoHeroe, bestia.getNombre());
 
-                }
+                int danoHeroe = valorDadoHeroe - bestia.getArmadura();
+                bestia.setVida(bestia.getVida() - danoHeroe);
 
+                VistaBatalla.detallePersonajeResultado(heroe.getNombre(), valorDadoHeroe, Math.max(danoHeroe, 0), bestia.getNombre());
 
-                if(valorDadoBestia > heroe.getArmadura()){
-                    int danoBestia = 0;
-                    if(bestia instanceof Orco)
-                        danoBestia = valorDadoBestia - heroe.getArmadura();
-                    else{
-                        danoBestia = valorDadoBestia - ((heroe.getArmadura() - (int)(heroe.getArmadura() * 0.10)));
-                    }
+                if(bestia instanceof Orco){
+
+                    int reduccionArmaduraHeroe = (heroe.getArmadura() - (int)(heroe.getArmadura() * 0.10));
+                    int danoBestia = valorDadoBestia - reduccionArmaduraHeroe;
                     heroe.setVida(heroe.getVida() - danoBestia);
-                    VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, danoBestia, heroe.getNombre());
+                    VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, Math.max(danoBestia, 0), heroe.getNombre());
+
+
+                }else{
+                    int danoBestia = valorDadoBestia - heroe.getArmadura();
+                    heroe.setVida(heroe.getVida() - danoBestia);
+
+                    VistaBatalla.detallePersonajeResultado(bestia.getNombre(), valorDadoBestia, Math.max(danoBestia, 0), heroe.getNombre());
+
+
                 }
 
             }
@@ -165,10 +168,15 @@ public class Game {
                 }
             }
 
-            if(ejercitoMal.isEmpty()){
+            // Lógica para comprobar Victoria o empate
+
+            if(ejercitoMal.isEmpty() && ejercitoBien.isEmpty()){
+                VistaBatalla.empateHeroesBestias();
+            }
+            else if(ejercitoMal.isEmpty()){
                 VistaBatalla.victoriaHeroes();
             }
-            if(ejercitoBien.isEmpty()){
+            else if(ejercitoBien.isEmpty()){
                 VistaBatalla.victoriaBestias();
             }
 
