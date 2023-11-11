@@ -8,11 +8,10 @@ public class Humano extends Heroe {
         super(nombre, vida, armadura);
     }
 
-    @Override
-    public int tirarDado(){
+
+    public int atacar(){
 
         return super.tirarDado();
-
     }
 
     public String toString(){

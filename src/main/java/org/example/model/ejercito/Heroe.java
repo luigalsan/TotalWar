@@ -1,21 +1,22 @@
 package org.example.model.ejercito;
 
-import org.example.model.Dado;
 import org.example.model.Personaje;
 
 import java.util.Random;
 
-public abstract class Heroe extends Personaje implements Dado {
-    public Random dado = new Random();
+public abstract class Heroe extends Personaje {
 
-    public Heroe(String nombre, int ataque, int armadura) {
-        super(nombre, ataque, armadura);
+    public Heroe(String nombre, int vida, int armadura, int potenciaOfensiva) {
+        super(nombre, vida, armadura, potenciaOfensiva);
     }
 
     @Override
-    public int tirarDado() {
-        return dado.nextInt(100);
+    public int atacar(Personaje personaje) {
+        Random dado1 = new Random();
     }
 
-
+    @Override
+    public int recibirDano(Personaje personaje) {
+        return 0;
+    }
 }

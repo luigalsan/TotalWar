@@ -8,12 +8,9 @@ public class Hobbit extends Heroe {
         super(nombre, ataque, armadura);
     }
 
-    @Override
-    public int tirarDado() {
-        return super.tirarDado();
-    }
 
-    public int tirarDadoEspecial(){
+
+    public int atacar(){
         return super.tirarDado() - 5;
     }
 

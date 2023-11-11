@@ -7,7 +7,11 @@ public class Trasgo extends Bestia {
         super(nombre, vida, armadura);
     }
 
+    private int atacar(){
+        return super.tirarDado();
+    }
     public String toString(){
         return "Trasgo{" + super.toString();
     }
+
 }

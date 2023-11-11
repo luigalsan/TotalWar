@@ -3,16 +3,44 @@ package org.example.controlador;
 
 import org.example.model.Game;
 import org.example.model.Personaje;
+import org.example.model.ejercito.raza.Elfo;
+import org.example.model.ejercito.raza.Humano;
+import org.example.model.ejercito.raza.Orco;
+import org.example.model.ejercito.raza.Trasgo;
 import org.example.vista.VistaBatalla;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
-public class ControladorPartida {
+public class GameController {
 
 
     Scanner sc = new Scanner(System.in);
-    Game game = new Game();
+    Game game = new Game(instanciarEjercitoBien(), instanciarEjercitoMal());
 
+    private List<Personaje> instanciarEjercitoBien(){
+        List<Personaje> ejercitoBien = new LinkedList<>();
+
+        // Creando heroes para prueba
+        ejercitoBien.add(new Elfo("Légolas", 150, 30));
+        ejercitoBien.add(new Humano("Frodo", 20, 10));
+        ejercitoBien.add(new Humano("Aragorn", 150, 50));
+        ejercitoBien.add(new Humano("Gandalf", 100, 60));
+        ejercitoBien.add(new Humano("Boromir", 100, 60));
+        return ejercitoBien;
+    }
+
+    private List<Personaje> instanciarEjercitoMal() {
+        List<Personaje> ejercitoMal = new LinkedList<>();
+        // Creando bestias para prueba
+        ejercitoMal.add(new Orco("Lurtz", 200, 60));
+        ejercitoMal.add(new Orco("Shagrat", 220, 50));
+        ejercitoMal.add(new Trasgo("Uglúk", 120, 30));
+        ejercitoMal.add(new Trasgo("Mauhúr", 100, 30));
+
+        return ejercitoMal;
+    }
     public static boolean condicionNombre(String input) {
         return input.matches("^[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñA-ZÁÉÍÓÚÜÑ]{2,}$");
     }

@@ -4,24 +4,25 @@ import java.util.Objects;
 
 public abstract class Personaje {
 
-    private String nombre;
+    private final String nombre;
     private int vida;
     private int armadura;
+    private int potenciaOfensiva;
 
 
-    public Personaje(String nombre, int vida, int armadura) {
+    public Personaje(String nombre, int vida, int armadura, int potenciaOfensiva) {
         this.nombre = nombre;
         this.vida = vida;
         this.armadura = armadura;
+        this.potenciaOfensiva = potenciaOfensiva;
 
     }
+
+    public abstract int atacar(Personaje personaje);
+    public abstract int recibirDano(Personaje personaje);
 
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getVida() {
@@ -40,6 +41,13 @@ public abstract class Personaje {
         this.armadura = armadura;
     }
 
+    public int getPotenciaOfensiva() {
+        return potenciaOfensiva;
+    }
+
+    public void setPotenciaOfensiva(int potenciaOfensiva) {
+        this.potenciaOfensiva = potenciaOfensiva;
+    }
 
     @Override
     public String toString() {
@@ -61,6 +69,5 @@ public abstract class Personaje {
     public int hashCode() {
         return Objects.hash(getNombre(), getVida(), getArmadura());
     }
-
 
 }

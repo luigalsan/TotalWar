@@ -12,6 +12,12 @@ public class Game {
     private List<Personaje> ejercitoBien = new LinkedList<>();
     private List<Personaje> ejercitoMal = new LinkedList<>();
 
+    public Game(List<Personaje> ejercitoBien, List<Personaje> ejercitoMal) {
+        this.ejercitoBien = ejercitoBien;
+        this.ejercitoMal = ejercitoMal;
+
+    }
+
     // Creación de personajes
 
     public void crearPersonajeHeroe(String nombre, int vida, int armadura, String raza){
