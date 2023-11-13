@@ -1,5 +1,7 @@
 package org.example.vista;
 
+import org.example.model.Personaje;
+
 import java.util.Scanner;
 
 public class VistaBatalla {
@@ -63,7 +65,7 @@ public class VistaBatalla {
 
     public static void mensajeValorMayorCero(){
         System.out.println("***** ¡ ATENCIÓN ! *****" +
-                "\nEl valor introducido tiene que ser mayor que 0\n");
+                "\nEl valor introducido tiene que ser entre 10 y 60 puntos\n");
     }
 
     public static String mensajeJugarDeNuevo(){
@@ -155,23 +157,22 @@ public class VistaBatalla {
     public static void detalleEjercito(String tipoEjercito){
         System.out.println("Tu ejército de " + tipoEjercito + " está conformado por:");
     }
-    public static void detallePersonajesInicioBatalla(String nombreHeroe, String nombreBestia, int vidaHeroe, int vidaBestia, int armaduraHeroe, int armaduraBestia) {
 
+    public static void mensajeTurno(int turno){
+        System.out.println("Turno " + turno);
+    }
+    public static void detallePersonajesInicioBatalla(String nombreHeroe, String nombreBestia, int vidaHeroe, int vidaBestia, int armaduraHeroe, int armaduraBestia) {
         System.out.println("Lucha entre " + nombreHeroe + " (Vida= " + vidaHeroe
                 + " Armadura= " + armaduraHeroe + ")" + " y " + nombreBestia + " (Vida= " + vidaBestia
                 + " Armadura= " + armaduraBestia + ")" );
     }
 
-    public static void detallePersonajeResultado(String atacante, int potenciaOfensiva, int danoRecibido, String defensa){
-        System.out.println( atacante + " saca " + potenciaOfensiva + " y le quita " + danoRecibido + " de vida a " + defensa);
+    public static void detallePersonajeResultado(String atacante, int potenciaOfensiva, int danoRecibido, String defensor){
+        System.out.println( atacante + " saca " + potenciaOfensiva + " y le quita " + danoRecibido + " de vida a " + defensor);
     }
 
-    public static void detalleMuerte(String nombre){
-        System.out.println("¡Muere " + nombre + "!");
-    }
-
-    public static void mensajeTurno(int turno){
-        System.out.println("Turno: " + turno);
+    public static void detalleMuerte(Personaje personaje){
+        System.out.println("¡Muere " + personaje.getClass().getSimpleName() +  " " + personaje.getNombre()  + "!");
     }
     public static void victoriaHeroes(){
         System.out.println();

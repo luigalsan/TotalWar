@@ -1,37 +1,41 @@
 package org.example.model.ejercito;
 
+import org.example.model.Dado;
 import org.example.model.Personaje;
 
 import java.util.Random;
 
 public class Bestia extends Personaje {
-    private Random dado = new Random();
 
 
     public Bestia(String nombre, int vida, int armadura) {
         super(nombre, vida, armadura);
-
     }
 
     @Override
     public int atacar(Personaje personaje) {
-        return 0;
+        return setPotenciaOfensiva(tirarDado());
     }
 
     @Override
-    public int recibirDano(Personaje personaje) {
-        return 0;
+    public int recibirDano(Personaje personaje, int potenciaOfensiva) {
+        int danoRecibido = 0;
+
+        if(potenciaOfensiva > getArmadura()){
+          danoRecibido = potenciaOfensiva - getArmadura();
+          setVida(getVida() - danoRecibido);
+
+          return danoRecibido;
+        }else{
+            return danoRecibido;
+        }
+
     }
 
-    public Random getDado() {
-        return dado;
+    public static int tirarDado() {
+        Dado dado = new Dado();
+
+        return dado.lanzarDado(0,90);
     }
-
-    @Override
-    public int tirarDado() {
-        return dado.nextInt(90);
-    }
-
-
 
 }

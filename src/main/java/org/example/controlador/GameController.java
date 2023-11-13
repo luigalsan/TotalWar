@@ -1,25 +1,32 @@
 package org.example.controlador;
 
 
-import org.example.model.Game;
 import org.example.model.Personaje;
-import org.example.model.ejercito.raza.Elfo;
-import org.example.model.ejercito.raza.Humano;
-import org.example.model.ejercito.raza.Orco;
-import org.example.model.ejercito.raza.Trasgo;
+import org.example.model.ejercito.Bestia;
+import org.example.model.ejercito.Heroe;
+import org.example.model.ejercito.raza.*;
 import org.example.vista.VistaBatalla;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 public class GameController {
 
+    private static int turno = 1;
+    private List<Personaje> ejercitoBien = new ArrayList<>();
+    private List<Personaje> ejercitoMal = new ArrayList<>();
 
-    Scanner sc = new Scanner(System.in);
-    Game game = new Game(instanciarEjercitoBien(), instanciarEjercitoMal());
+    public GameController(String ejercito){
+        this.ejercitoBien = instanciarEjercitoBien();
+        this.ejercitoMal = instanciarEjercitoMal();
 
-    private List<Personaje> instanciarEjercitoBien(){
+    }
+    public GameController(){
+
+    }
+    private List<Personaje> instanciarEjercitoBien() {
         List<Personaje> ejercitoBien = new LinkedList<>();
 
         // Creando heroes para prueba
@@ -41,55 +48,57 @@ public class GameController {
 
         return ejercitoMal;
     }
+
     public static boolean condicionNombre(String input) {
         return input.matches("^[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñA-ZÁÉÍÓÚÜÑ]{2,}$");
     }
 
-    public void menuSeleccion(){
+    public void menuSeleccion() {
         boolean opcionValidada = false;
         VistaBatalla.imprimirBanner();
-        do{
-            try{
-                    int opcion = VistaBatalla.mensajeMenu();
-                    switch (opcion) {
+        do {
+            try {
+                int opcion = VistaBatalla.mensajeMenu();
+                switch (opcion) {
 
-                        case 1 -> {
-                            // Borrar datos ejercito
-                            seleccionPersonaje();
-                        }
-                        case 2 -> {
-                            if(game.getEjercitoBien().isEmpty() || game.getEjercitoMal().isEmpty()){
-                                System.out.println("***** ¡ ATENCIÓN ! *****" +
-                                        "\nSe necesita crear un ejército de cada tipo para comenzar la batalla\n");
-                            }else {
-                                preparacionBatalla();
-                                opcionValidada = true;
-                                boolean continuarPartida = false;
-                                do {
-                                    String continuar =  VistaBatalla.mensajeJugarDeNuevo();
-                                    if (continuar.equals("Si") || continuar.equals("No")) {
-                                        continuarPartida = true;
-                                        opcionValidada = false;
-                                        game.borrarEjercitos();
-                                    }else{
-                                        VistaBatalla.mensajeDefault();
-                                    }
-                                }while(!continuarPartida);
-                            }
-                        }
-                        case 3 -> {
-                            System.out.println("Salir");
-                            opcionValidada = true;
-                        }
-                        default -> VistaBatalla.mensajeDefault();
+                    case 1 -> {
+                        // Borrar datos ejercito
+                        seleccionPersonaje();
                     }
-                }catch (NumberFormatException e){
-                    VistaBatalla.mensajeNumberException();
+                    case 2 -> {
+                        if (ejercitoBien.isEmpty() || ejercitoMal.isEmpty()) {
+                            System.out.println("***** ¡ ATENCIÓN ! *****" +
+                                    "\nSe necesita crear un ejército de cada tipo para comenzar la batalla\n");
+                        } else {
+                            preparacionBatalla();
+                            opcionValidada = true;
+                            boolean continuarPartida = false;
+                            do {
+                                String continuar = VistaBatalla.mensajeJugarDeNuevo();
+                                if (continuar.equals("Si") || continuar.equals("No")) {
+                                    continuarPartida = true;
+                                    opcionValidada = false;
+                                    borrarEjercitos();
+                                } else {
+                                    VistaBatalla.mensajeDefault();
+                                }
+                            } while (!continuarPartida);
+                        }
+                    }
+                    case 3 -> {
+                        System.out.println("Salir");
+                        opcionValidada = true;
+                    }
+                    default -> VistaBatalla.mensajeDefault();
                 }
+            } catch (NumberFormatException e) {
+                VistaBatalla.mensajeNumberException();
+            }
 
-            }while (!opcionValidada);
+        } while (!opcionValidada);
     }
     // Selección personaje
+
     public void seleccionPersonaje() {
         String continuarCreandoPersonaje = null;
         do {
@@ -112,85 +121,86 @@ public class GameController {
             boolean otroPersonajeValidado = false;
 
 
-            while(!nombreValidado){
+            while (!nombreValidado) {
                 // Introduce nombre
                 nombre = VistaBatalla.mensajeIntroduceNombre();
                 nombreValidado = true;
-                if(!condicionNombre(nombre)){
+                if (!condicionNombre(nombre)) {
                     VistaBatalla.mensajeIntroduceNombreError();
                     nombreValidado = false;
                 }
             }
 
             do {
-                try{
+                try {
 
-                faccion = VistaBatalla.mensajeIntroduceFaccion();
+                    faccion = VistaBatalla.mensajeIntroduceFaccion();
 
-                switch (faccion) {
-                    case 1 -> {
-                        do{
-                            try{
+                    switch (faccion) {
+                        case 1 -> {
+                            do {
+                                try {
 
-                                int numeroHeroe = VistaBatalla.mensajeIntroduceRazaHeroe();
-                                switch (numeroHeroe) {
-                                    case 1 -> {
-                                        raza = "Elfo";
-                                        heroeValidado = true;
+                                    int numeroHeroe = VistaBatalla.mensajeIntroduceRazaHeroe();
+                                    switch (numeroHeroe) {
+                                        case 1 -> {
+                                            raza = "Elfo";
+                                            heroeValidado = true;
+                                        }
+                                        case 2 -> {
+                                            raza = "Hobbit";
+                                            heroeValidado = true;
+                                        }
+                                        case 3 -> {
+                                            raza = "Humano";
+                                            heroeValidado = true;
+                                        }
+                                        default -> VistaBatalla.mensajeDefault();
                                     }
-                                    case 2 -> {
-                                        raza = "Hobbit";
-                                        heroeValidado = true;
-                                    }
-                                    case 3 -> {
-                                        raza = "Humano";
-                                        heroeValidado = true;
-                                    }
-                                    default -> VistaBatalla.mensajeDefault();
+                                } catch (NumberFormatException e) {
+                                    VistaBatalla.mensajeNumberException();
                                 }
-                            }catch(NumberFormatException e){
-                                VistaBatalla.mensajeNumberException();
-                            }
-                            faccionValidada = true;
-                        }while(!heroeValidado);
+                                faccionValidada = true;
+                            } while (!heroeValidado);
 
-                    }
-                    case 2 -> {
-                        do{
-                            try{
-                                int numeroBestia = VistaBatalla.mensajeIntroduceRazaBestia();
-                                switch (numeroBestia) {
-                                    case 1 -> {
-                                        raza = "Orco";
-                                        bestiaValidado = true;
+                        }
+                        case 2 -> {
+                            do {
+                                try {
+                                    int numeroBestia = VistaBatalla.mensajeIntroduceRazaBestia();
+                                    switch (numeroBestia) {
+                                        case 1 -> {
+                                            raza = "Orco";
+                                            bestiaValidado = true;
+                                        }
+                                        case 2 -> {
+                                            raza = "Trasgo";
+                                            bestiaValidado = true;
+                                        }
+                                        default -> VistaBatalla.mensajeDefault();
                                     }
-                                    case 2 ->{
-                                        raza = "Trasgo";
-                                        bestiaValidado = true;
-                                    }
-                                    default -> VistaBatalla.mensajeDefault();
-                                };
+                                    ;
 
-                            }catch (NumberFormatException e){
-                                VistaBatalla.mensajeNumberException();
-                            }
-                            faccionValidada = true;
-                        }while(!bestiaValidado);
+                                } catch (NumberFormatException e) {
+                                    VistaBatalla.mensajeNumberException();
+                                }
+                                faccionValidada = true;
+                            } while (!bestiaValidado);
 
+                        }
+                        default -> VistaBatalla.mensajeDefault();
                     }
-                    default -> VistaBatalla.mensajeDefault();
-                }
-                }catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     VistaBatalla.mensajeNumberException();
                 }
-            }while(!faccionValidada);
+            } while (!faccionValidada);
 
             do {
                 try {
                     // La vida tiene que ser mayor que cero
                     vida = VistaBatalla.mensajeVida();
                     vidaValidada = true;
-                    if(vida <= 0){
+                    if (vida <= 0) {
                         VistaBatalla.mensajeValorMayorCero();
                         vidaValidada = false;
                     }
@@ -198,37 +208,54 @@ public class GameController {
                 } catch (NumberFormatException e) {
                     VistaBatalla.mensajeNumberException();
                 }
-            }while(!vidaValidada);
+            } while (!vidaValidada);
 
 
-            do{
-                try{
+            do {
+                try {
                     armadura = VistaBatalla.mensajeArmadura();
                     armaduraValidada = true;
-                    if(armadura <= 0){
+                    if (armadura < 10 || armadura > 60) {
                         VistaBatalla.mensajeValorMayorCero();
                         armaduraValidada = false;
                     }
-                }catch(NumberFormatException n){
+                } catch (NumberFormatException n) {
                     VistaBatalla.mensajeNumberException();
                 }
-            }while(!armaduraValidada);
+            } while (!armaduraValidada);
 
 
             //Paso estos atributos para la creación de mi personaje y los agrego al Set Bestia o Heroe
 
+
             // Verificar que nombre no es null
 
             if (faccion == 1) {
-                game.crearPersonajeHeroe(nombre, vida, armadura, raza);
+                switch (raza) {
+                    case "Elfo" -> {
+                        ejercitoBien.add(new Elfo(nombre, vida, armadura));
+                    }
+                    case "Hobbit" -> {
+                        ejercitoBien.add(new Hobbit(nombre, vida, armadura));
+                    }
+                    case "Humano" -> {
+                        ejercitoBien.add(new Humano(nombre, vida, armadura));
+                    }
+                }
                 VistaBatalla.detalleEjercito("Heroes");
-                game.getEjercitoBien().forEach(System.out::println);
+                ejercitoBien.forEach(System.out::println);
 
-            }
-            else {
-                game.crearPersonajeBestia(nombre, vida, armadura, raza);
+            } else {
+                switch (raza) {
+                    case "Orco" -> {
+                        ejercitoMal.add(new Orco(nombre, vida, armadura));
+                    }
+                    case "Trasgo" -> {
+                        ejercitoMal.add(new Trasgo(nombre, vida, armadura));
+                    }
+                }
                 VistaBatalla.detalleEjercito("Bestias");
-                game.getEjercitoMal().forEach(System.out::println);
+                ejercitoMal.forEach(System.out::println);
 
             }
 
@@ -237,82 +264,164 @@ public class GameController {
                 continuarCreandoPersonaje = VistaBatalla.mensajeIntroducirOtroPersonaje();
                 if (continuarCreandoPersonaje.equals("Si") || continuarCreandoPersonaje.equals("No")) {
                     otroPersonajeValidado = true;
-                }else{
+                } else {
                     VistaBatalla.mensajeDefault();
                 }
-            }while(!otroPersonajeValidado);
+            } while (!otroPersonajeValidado);
 
         } while (continuarCreandoPersonaje.equalsIgnoreCase("Si"));
     }
 
     // Comienzo partida
 
-    public void preparacionBatalla(){
+    public void preparacionBatalla() {
         boolean opcionValidada = false;
         boolean opcionOrdenarValidada = false;
 
-            do{
-                try{
-                    int opcion = VistaBatalla.preparacionBatalla();
+        do {
+            try {
+                int opcion = VistaBatalla.preparacionBatalla();
 
-                    switch (opcion){
-                        case 1 -> {
-                            try{
-                                do{
-                                    int opcionOrdenar = VistaBatalla.ordenarEjercitos();
-                                    switch(opcionOrdenar){
-                                        case 1 -> {
-                                            game.ordenarLista(game.getEjercitoBien(), opcionOrdenar);
-                                            game.ordenarLista(game.getEjercitoMal(), opcionOrdenar);
-                                            opcionOrdenarValidada = true;
-                                        }
-                                        case 2 -> {
-                                            game.ordenarLista(game.getEjercitoBien(), opcionOrdenar);
-                                            game.ordenarLista(game.getEjercitoMal(), opcionOrdenar);
-                                            opcionOrdenarValidada = true;
-                                        }
-                                        case 3 ->{
-                                            game.ordenarLista(game.getEjercitoBien(), opcionOrdenar);
-                                            game.ordenarLista(game.getEjercitoMal(), opcionOrdenar);
-                                            opcionOrdenarValidada = true;
-                                        }
-                                        default -> VistaBatalla.mensajeDefault();
+                switch (opcion) {
+                    case 1 -> {
+                        try {
+                            do {
+                                int opcionOrdenar = VistaBatalla.ordenarEjercitos();
+                                switch (opcionOrdenar) {
+                                    case 1 -> {
+                                        ordenarLista(ejercitoBien, opcionOrdenar);
+                                        ordenarLista(ejercitoMal, opcionOrdenar);
+                                        opcionOrdenarValidada = true;
                                     }
+                                    case 2 -> {
+                                        ordenarLista(ejercitoBien, opcionOrdenar);
+                                        ordenarLista(ejercitoMal, opcionOrdenar);
+                                        opcionOrdenarValidada = true;
+                                    }
+                                    case 3 -> {
+                                        ordenarLista(ejercitoBien, opcionOrdenar);
+                                        ordenarLista(ejercitoMal, opcionOrdenar);
+                                        opcionOrdenarValidada = true;
+                                    }
+                                    default -> VistaBatalla.mensajeDefault();
+                                }
 
-                                    VistaBatalla.detalleEjercito("Heroes");
-                                    game.getEjercitoBien().forEach(System.out::println);
-                                    System.out.println();
+                                VistaBatalla.detalleEjercito("Heroes");
+                                ejercitoBien.forEach(System.out::println);
+                                System.out.println();
 
-                                    VistaBatalla.detalleEjercito("Bestias");
-                                    game.getEjercitoMal().forEach(System.out::println);
-                                    System.out.println();
+                                VistaBatalla.detalleEjercito("Bestias");
+                                ejercitoMal.forEach(System.out::println);
+                                System.out.println();
 
-                                }while(!opcionOrdenarValidada);
+                            } while (!opcionOrdenarValidada);
 
-                            }catch(NumberFormatException e){
-                                VistaBatalla.mensajeNumberException();
-                            }
+                        } catch (NumberFormatException e) {
+                            VistaBatalla.mensajeNumberException();
                         }
-                        case 2 -> {
-                            System.out.println("Empieza la batalla");
-                            controladorBatalla();
-                            opcionValidada = true;
-                        }
-                        default -> VistaBatalla.mensajeDefault();
                     }
-                }catch(NumberFormatException e){
-                    VistaBatalla.mensajeNumberException();
+                    case 2 -> {
+                        System.out.println("Empieza la batalla");
+                        batalla();
+                        opcionValidada = true;
+                    }
+                    default -> VistaBatalla.mensajeDefault();
                 }
-            }while(!opcionValidada);
+            } catch (NumberFormatException e) {
+                VistaBatalla.mensajeNumberException();
+            }
+        } while (!opcionValidada);
 
     }
 
+    public void ordenarLista(List<Personaje> listaPersonajes, int opcion) {
 
-    // COMENZANDO LA BATALLA
+        switch (opcion) {
+            case 1 -> listaPersonajes.sort((h1, h2) -> h1.getNombre().compareTo(h2.getNombre()));
+            case 2 -> listaPersonajes.sort((h1, h2) -> h2.getVida() - h1.getVida());
+            case 3 -> listaPersonajes.sort((h1, h2) -> h2.getArmadura() - h1.getArmadura());
+        }
 
-    public void controladorBatalla(){
-        game.batalla();
+        if (listaPersonajes instanceof Bestia) {
+            ejercitoMal = listaPersonajes;
+        }
+        if (listaPersonajes instanceof Heroe) {
+            ejercitoBien = listaPersonajes;
+        }
     }
 
+    public void borrarEjercitos(){
+        this.ejercitoMal = new LinkedList<>();
+        this.ejercitoBien = new LinkedList<>();
+    }
 
+    public void batalla(){
+        while(!ejercitoMal.isEmpty() && !ejercitoBien.isEmpty()){
+            int sizeListaMenor = Math.min(ejercitoBien.size(), ejercitoMal.size());
+
+            List<Personaje> personajesMuertosBien = new ArrayList<>();
+            List<Personaje> personajesMuertosMal = new ArrayList<>();
+
+            VistaBatalla.mensajeTurno(turno);
+            //Cada turno habrá que comprobar qué lista es la menor
+            for (int i = 0; i < sizeListaMenor; i++) {
+                Heroe heroe = (Heroe) ejercitoBien.get(i);
+                Bestia bestia = (Bestia) ejercitoMal.get(i);
+
+                VistaBatalla.detallePersonajesInicioBatalla(heroe.getNombre(), bestia.getNombre(), heroe.getVida(), bestia.getVida(), heroe.getArmadura(), bestia.getArmadura());
+
+                // Ataque de heroe a bestia
+                heroe.atacar(bestia);
+                int danoRecibidoBestia = bestia.recibirDano(heroe, heroe.getPotenciaOfensiva());
+                VistaBatalla.detallePersonajeResultado(heroe.getNombre(), heroe.getPotenciaOfensiva(), danoRecibidoBestia, bestia.getNombre());
+
+                // Ataque de bestia a heroe
+                bestia.atacar(heroe);
+                int danoRecibidoHeroe = heroe.recibirDano(bestia, bestia.getPotenciaOfensiva());
+                VistaBatalla.detallePersonajeResultado(bestia.getNombre(), bestia.getPotenciaOfensiva(), danoRecibidoHeroe, heroe.getNombre());
+
+                // Pasar al siguiente personaje y comprobar si está muerto
+
+
+                if(bestia.getVida() <= 0){
+                    personajesMuertosMal.add(bestia);
+                }
+
+                if(heroe.getVida() <= 0){
+                    personajesMuertosBien.add(heroe);
+                }
+            }
+            if(!personajesMuertosMal.isEmpty()){
+                for(Personaje personaje : personajesMuertosMal){
+                    VistaBatalla.detalleMuerte(personaje);
+                }
+            }
+
+            if(!personajesMuertosBien.isEmpty()){
+                for(Personaje personaje : personajesMuertosBien){
+                    VistaBatalla.detalleMuerte(personaje);
+                }
+            }
+
+            ejercitoMal.removeAll(personajesMuertosMal);
+            ejercitoBien.removeAll(personajesMuertosBien);
+
+            turno ++;
+        }
+
+        // Decisión final de la batalla
+        if(ejercitoMal.isEmpty() && ejercitoBien.isEmpty()){
+            VistaBatalla.empateHeroesBestias();
+        } else {
+            if (ejercitoMal.isEmpty()) {
+                VistaBatalla.victoriaHeroes();
+
+            } else if (ejercitoBien.isEmpty()) {
+                VistaBatalla.victoriaBestias();
+            }
+        }
+
+    }
 }
+
+

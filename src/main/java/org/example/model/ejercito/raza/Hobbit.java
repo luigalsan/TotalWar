@@ -4,16 +4,28 @@ import org.example.model.Personaje;
 import org.example.model.ejercito.Heroe;
 
 public class Hobbit extends Heroe {
-    public Hobbit(String nombre, int ataque, int armadura) {
-        super(nombre, ataque, armadura);
+
+
+    public Hobbit(String nombre, int vida, int armadura) {
+        super(nombre, vida, armadura);
     }
 
+    @Override
+    public int atacar(Personaje personaje) {
 
+        if(personaje instanceof Trasgo){
+            return super.atacar(personaje) - 5;
+        }else{
+            return super.atacar(personaje);
+        }
 
-    public int atacar(){
-        return super.tirarDado() - 5;
+    }
+    @Override
+    public int recibirDano(Personaje personaje, int potenciaOfensiva) {
+        return super.recibirDano(personaje, potenciaOfensiva);
     }
 
+    @Override
     public String toString(){
         return "Hobbit{" + super.toString();
     }

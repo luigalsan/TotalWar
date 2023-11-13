@@ -10,16 +10,16 @@ public abstract class Personaje {
     private int potenciaOfensiva;
 
 
-    public Personaje(String nombre, int vida, int armadura, int potenciaOfensiva) {
+    public Personaje(String nombre, int vida, int armadura) {
         this.nombre = nombre;
         this.vida = vida;
         this.armadura = armadura;
-        this.potenciaOfensiva = potenciaOfensiva;
+        this.potenciaOfensiva = 0;
 
     }
 
     public abstract int atacar(Personaje personaje);
-    public abstract int recibirDano(Personaje personaje);
+    public abstract int recibirDano(Personaje personaje, int potenciaOfensiva);
 
     public String getNombre() {
         return nombre;
@@ -37,16 +37,13 @@ public abstract class Personaje {
         return armadura;
     }
 
-    public void setArmadura(int armadura) {
-        this.armadura = armadura;
-    }
-
     public int getPotenciaOfensiva() {
         return potenciaOfensiva;
     }
 
-    public void setPotenciaOfensiva(int potenciaOfensiva) {
+    public int setPotenciaOfensiva(int potenciaOfensiva) {
         this.potenciaOfensiva = potenciaOfensiva;
+        return potenciaOfensiva;
     }
 
     @Override
