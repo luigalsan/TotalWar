@@ -14,7 +14,6 @@ import java.util.List;
 
 public class GameController {
 
-    private static int turno = 1;
     private List<Personaje> ejercitoBien = new ArrayList<>();
     private List<Personaje> ejercitoMal = new ArrayList<>();
 
@@ -31,7 +30,7 @@ public class GameController {
 
         // Creando heroes para prueba
         ejercitoBien.add(new Elfo("Légolas", 150, 30));
-        ejercitoBien.add(new Humano("Frodo", 20, 10));
+        ejercitoBien.add(new Hobbit("Frodo", 20, 10));
         ejercitoBien.add(new Humano("Aragorn", 150, 50));
         ejercitoBien.add(new Humano("Gandalf", 100, 60));
         ejercitoBien.add(new Humano("Boromir", 100, 60));
@@ -67,26 +66,28 @@ public class GameController {
                     }
                     case 2 -> {
                         if (ejercitoBien.isEmpty() || ejercitoMal.isEmpty()) {
-                            System.out.println("***** ¡ ATENCIÓN ! *****" +
-                                    "\nSe necesita crear un ejército de cada tipo para comenzar la batalla\n");
+                            VistaBatalla.mensajeEjercitosRequeridos();
                         } else {
                             preparacionBatalla();
                             opcionValidada = true;
                             boolean continuarPartida = false;
                             do {
                                 String continuar = VistaBatalla.mensajeJugarDeNuevo();
-                                if (continuar.equals("Si") || continuar.equals("No")) {
+                                if (continuar.equals("Si")) {
                                     continuarPartida = true;
                                     opcionValidada = false;
                                     borrarEjercitos();
-                                } else {
+                                }
+                                else if (continuar.equals("No")){
+                                    break;
+                                }
+                                else {
                                     VistaBatalla.mensajeDefault();
                                 }
                             } while (!continuarPartida);
                         }
                     }
                     case 3 -> {
-                        System.out.println("Salir");
                         opcionValidada = true;
                     }
                     default -> VistaBatalla.mensajeDefault();
@@ -321,7 +322,6 @@ public class GameController {
                         }
                     }
                     case 2 -> {
-                        System.out.println("Empieza la batalla");
                         batalla();
                         opcionValidada = true;
                     }
@@ -355,12 +355,31 @@ public class GameController {
         this.ejercitoBien = new LinkedList<>();
     }
 
+    public static void controlarDuplicados(ArrayList<Personaje> lista, Personaje personaje) {
+        if (!lista.contains(personaje)) {
+            lista.add(personaje);
+        }
+    }
+
     public void batalla(){
+        int turno = 1;
         while(!ejercitoMal.isEmpty() && !ejercitoBien.isEmpty()){
+            // Variable local turno
             int sizeListaMenor = Math.min(ejercitoBien.size(), ejercitoMal.size());
 
             List<Personaje> personajesMuertosBien = new ArrayList<>();
             List<Personaje> personajesMuertosMal = new ArrayList<>();
+
+            VistaBatalla.detalleEjercito("Heroes");
+            ejercitoBien.forEach(System.out::println);
+            System.out.println(ejercitoBien.size());
+            System.out.println();
+
+            VistaBatalla.detalleEjercito("Bestias");
+            ejercitoMal.forEach(System.out::println);
+            System.out.println(ejercitoMal.size());
+            System.out.println();
+
 
             VistaBatalla.mensajeTurno(turno);
             //Cada turno habrá que comprobar qué lista es la menor

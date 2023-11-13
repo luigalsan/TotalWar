@@ -57,14 +57,14 @@ public abstract class Personaje {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Personaje personaje)) return false;
-        boolean b = getVida() == personaje.getVida();
-        return b && getArmadura() == personaje.getArmadura() && Objects.equals(getNombre(), personaje.getNombre());
+        if (o == null || getClass() != o.getClass()) return false;
+        Personaje personaje = (Personaje) o;
+        return Objects.equals(getNombre(), personaje.getNombre());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNombre(), getVida(), getArmadura());
+        return Objects.hash(getNombre());
     }
 
 }

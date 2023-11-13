@@ -63,6 +63,11 @@ public class VistaBatalla {
                 "\nPara crear el personaje, es necesario introducir un nombre que empiece por mayúscula y al menos tenga tres letras para crear el personaje\n");
     }
 
+    public static void mensajeEjercitosRequeridos(){
+        System.out.println("***** ¡ ATENCIÓN ! *****" +
+                "\nSe necesita crear un ejército de cada tipo para comenzar la batalla\n");
+    }
+
     public static void mensajeValorMayorCero(){
         System.out.println("***** ¡ ATENCIÓN ! *****" +
                 "\nEl valor introducido tiene que ser entre 10 y 60 puntos\n");
