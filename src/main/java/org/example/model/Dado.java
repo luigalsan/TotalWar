@@ -1,7 +1,17 @@
 package org.example.model;
 
-public interface Dado {
+import java.util.Random;
 
-    int tirarDado();
+public class Dado {
+
+    private final Random random;
+
+    public Dado(){
+        random = new Random();
+    }
+
+    public int lanzarDado(int min, int max) {
+        return random.nextInt(max - min + 1) + min;
+    }
 
 }

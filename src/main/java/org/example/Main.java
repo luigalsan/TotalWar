@@ -1,20 +1,16 @@
 package org.example;
 
-import org.example.controlador.ControladorPartida;
-import org.example.model.Game;
-import org.example.model.Personaje;
+import org.example.controlador.GameController;
 import org.example.model.ejercito.raza.Elfo;
-
-import java.util.LinkedList;
-import java.util.List;
+import org.example.model.ejercito.raza.Humano;
 
 
 public class Main {
     public static void main(String[] args) {
 
-        ControladorPartida controladorPartida = new ControladorPartida();
-        //Menú selección
-        controladorPartida.menuSeleccion();
+        //tengo una lista de 10 elementos
+       GameController gameController = new GameController("hola");
 
+       gameController.menuSeleccion();
     }
 }
