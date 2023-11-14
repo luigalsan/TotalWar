@@ -7,6 +7,7 @@ import org.example.model.ejercito.Heroe;
 import org.example.model.ejercito.raza.*;
 import org.example.vista.VistaBatalla;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -29,10 +30,10 @@ public class GameController {
         List<Personaje> ejercitoBien = new LinkedList<>();
 
         // Creando heroes para prueba
-        ejercitoBien.add(new Elfo("Légolas", 150, 30));
-        ejercitoBien.add(new Hobbit("Frodo", 20, 10));
+//        ejercitoBien.add(new Elfo("Legolas", 150, 30));
+//        ejercitoBien.add(new Hobbit("Frodo", 20, 10));
         ejercitoBien.add(new Humano("Aragorn", 150, 50));
-        ejercitoBien.add(new Humano("Gandalf", 100, 60));
+        ejercitoBien.add(new Humano("Gandalf", 500, 30));
         ejercitoBien.add(new Humano("Boromir", 100, 60));
         return ejercitoBien;
     }
@@ -40,7 +41,7 @@ public class GameController {
     private List<Personaje> instanciarEjercitoMal() {
         List<Personaje> ejercitoMal = new LinkedList<>();
         // Creando bestias para prueba
-        ejercitoMal.add(new Orco("Lurtz", 200, 60));
+        ejercitoMal.add(new Orco("Lurtz", 600, 30));
         ejercitoMal.add(new Orco("Shagrat", 220, 50));
         ejercitoMal.add(new Trasgo("Uglúk", 120, 30));
         ejercitoMal.add(new Trasgo("Mauhúr", 100, 30));
@@ -49,7 +50,9 @@ public class GameController {
     }
 
     public static boolean condicionNombre(String input) {
-        return input.matches("^[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñA-ZÁÉÍÓÚÜÑ]{2,}$");
+
+        return input.matches("^[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñA-ZÁÉÍÓÚÜÑ]{2,}(\\s[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñA-ZÁÉÍÓÚÜÑ]*)*$");
+
     }
 
     public void menuSeleccion() {
@@ -130,6 +133,13 @@ public class GameController {
                     VistaBatalla.mensajeIntroduceNombreError();
                     nombreValidado = false;
                 }
+                boolean ejercitoBienDuplicado =  controlarDuplicados(ejercitoBien, nombre);
+                boolean ejercitoMalDuplicado = controlarDuplicados(ejercitoMal, nombre);
+
+                if(ejercitoBienDuplicado || ejercitoMalDuplicado){
+                    VistaBatalla.mensajeNombreExiste();
+                    nombreValidado = false;
+                }
             }
 
             do {
@@ -201,8 +211,8 @@ public class GameController {
                     // La vida tiene que ser mayor que cero
                     vida = VistaBatalla.mensajeVida();
                     vidaValidada = true;
-                    if (vida <= 0) {
-                        VistaBatalla.mensajeValorMayorCero();
+                    if (vida < 20 || vida > 300) {
+                        VistaBatalla.mensajeValorVida();
                         vidaValidada = false;
                     }
 
@@ -355,10 +365,17 @@ public class GameController {
         this.ejercitoBien = new LinkedList<>();
     }
 
-    public static void controlarDuplicados(ArrayList<Personaje> lista, Personaje personaje) {
-        if (!lista.contains(personaje)) {
-            lista.add(personaje);
+    public static boolean controlarDuplicados(List<Personaje> lista, String nombre) {
+
+        boolean personajeEncontrado = false;
+
+        for(Personaje personaje : lista){
+            if(personaje.getNombre().equals(nombre)){
+                personajeEncontrado = true;
+                break;
+            }
         }
+        return personajeEncontrado;
     }
 
     public void batalla(){
@@ -370,17 +387,6 @@ public class GameController {
             List<Personaje> personajesMuertosBien = new ArrayList<>();
             List<Personaje> personajesMuertosMal = new ArrayList<>();
 
-            VistaBatalla.detalleEjercito("Heroes");
-            ejercitoBien.forEach(System.out::println);
-            System.out.println(ejercitoBien.size());
-            System.out.println();
-
-            VistaBatalla.detalleEjercito("Bestias");
-            ejercitoMal.forEach(System.out::println);
-            System.out.println(ejercitoMal.size());
-            System.out.println();
-
-
             VistaBatalla.mensajeTurno(turno);
             //Cada turno habrá que comprobar qué lista es la menor
             for (int i = 0; i < sizeListaMenor; i++) {
@@ -388,7 +394,6 @@ public class GameController {
                 Bestia bestia = (Bestia) ejercitoMal.get(i);
 
                 VistaBatalla.detallePersonajesInicioBatalla(heroe.getNombre(), bestia.getNombre(), heroe.getVida(), bestia.getVida(), heroe.getArmadura(), bestia.getArmadura());
-
                 // Ataque de heroe a bestia
                 heroe.atacar(bestia);
                 int danoRecibidoBestia = bestia.recibirDano(heroe, heroe.getPotenciaOfensiva());

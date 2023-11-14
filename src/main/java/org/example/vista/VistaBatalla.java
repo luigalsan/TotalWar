@@ -50,6 +50,7 @@ public class VistaBatalla {
         return Integer.parseInt(sc.nextLine());
     }
 
+
     // MENSAJES  PARA LA OPCIÓN 1. AGREGAR PERSONAJES
     public static String mensajeIntroduceNombre() {
         Scanner sc = new Scanner(System.in);
@@ -57,6 +58,12 @@ public class VistaBatalla {
 
         return sc.nextLine();
     }
+
+    public static void mensajeNombreExiste(){
+        System.out.println("*************************************** ¡ ATENCIÓN ! ***************************************" +
+                "\nEl nombre introducido ya existe en la partida. Por favor, inserte otro\n");
+    }
+
 
     public static void mensajeIntroduceNombreError(){
         System.out.println("*************************************** ¡ ATENCIÓN ! ***************************************" +
@@ -71,6 +78,11 @@ public class VistaBatalla {
     public static void mensajeValorMayorCero(){
         System.out.println("***** ¡ ATENCIÓN ! *****" +
                 "\nEl valor introducido tiene que ser entre 10 y 60 puntos\n");
+    }
+
+    public static void mensajeValorVida(){
+        System.out.println("***** ¡ ATENCIÓN ! *****" +
+                "\nEl valor introducido tiene que ser entre 20 y 300 puntos\n");
     }
 
     public static String mensajeJugarDeNuevo(){

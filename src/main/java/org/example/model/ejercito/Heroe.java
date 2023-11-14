@@ -34,7 +34,7 @@ public abstract class Heroe extends Personaje {
         }else{
             if(potenciaOfensiva > getArmadura()){
                 danoRecibido = potenciaOfensiva - getArmadura();
-                setVida(danoRecibido);
+                setVida(getVida() - danoRecibido);
                 return danoRecibido;
             }else{
                 return danoRecibido;

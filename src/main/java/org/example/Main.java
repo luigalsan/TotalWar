@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         //tengo una lista de 10 elementos
-       GameController gameController = new GameController("ejercito");
+       GameController gameController = new GameController();
 
        gameController.menuSeleccion();
     }
