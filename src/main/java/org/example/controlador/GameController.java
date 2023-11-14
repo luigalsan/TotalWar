@@ -390,8 +390,8 @@ public class GameController {
             VistaBatalla.mensajeTurno(turno);
             //Cada turno habrá que comprobar qué lista es la menor
             for (int i = 0; i < sizeListaMenor; i++) {
-                Heroe heroe = (Heroe) ejercitoBien.get(i);
-                Bestia bestia = (Bestia) ejercitoMal.get(i);
+                Personaje heroe = ejercitoBien.get(i);
+                Personaje bestia = ejercitoMal.get(i);
 
                 VistaBatalla.detallePersonajesInicioBatalla(heroe.getNombre(), bestia.getNombre(), heroe.getVida(), bestia.getVida(), heroe.getArmadura(), bestia.getArmadura());
                 // Ataque de heroe a bestia
@@ -400,10 +400,11 @@ public class GameController {
                 VistaBatalla.detallePersonajeResultado(heroe.getNombre(), heroe.getPotenciaOfensiva(), danoRecibidoBestia, bestia.getNombre());
 
                 // Ataque de bestia a heroe
-                bestia.atacar(heroe);
-                int danoRecibidoHeroe = heroe.recibirDano(bestia, bestia.getPotenciaOfensiva());
-                VistaBatalla.detallePersonajeResultado(bestia.getNombre(), bestia.getPotenciaOfensiva(), danoRecibidoHeroe, heroe.getNombre());
-
+                if(bestia.getVida() >= 0) {
+                    bestia.atacar(heroe);
+                    int danoRecibidoHeroe = heroe.recibirDano(bestia, bestia.getPotenciaOfensiva());
+                    VistaBatalla.detallePersonajeResultado(bestia.getNombre(), bestia.getPotenciaOfensiva(), danoRecibidoHeroe, heroe.getNombre());
+                }
                 // Pasar al siguiente personaje y comprobar si está muerto
 
 

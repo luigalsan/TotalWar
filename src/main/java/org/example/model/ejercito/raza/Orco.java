@@ -15,6 +15,7 @@ public class Orco extends Bestia {
         return super.atacar(personaje);
     }
 
+
     @Override
     public int recibirDano(Personaje personaje, int potenciaOfensiva) {
         return super.recibirDano(personaje, potenciaOfensiva);
